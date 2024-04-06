@@ -253,6 +253,8 @@ $this->registerCssFile('/css/roads.css');
         <?php endif; ?>
 
     </div>
+    <div class="map"></div>
+</div>
 
 
 <?php
