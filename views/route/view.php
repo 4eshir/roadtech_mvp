@@ -80,7 +80,7 @@ $this->registerCssFile('/css/roads.css');
             </div>
             <div class="type-road-link">
                 <a href="#">
-                    <img src="/mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                    <img src="/mark/icons8-автобус-50.png" class="mark-card">30 мин.
                     <span style="lgc">
                         <?php echo $model->getPrettyDistance(); ?>
                     </span>
@@ -88,7 +88,7 @@ $this->registerCssFile('/css/roads.css');
             </div>
         </div>
 
-        <div class="flexx" style="margin: 1em 0;">
+        <div class="flexx" id="container-switch" style="margin: 1em 0;">
             <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
             <span style="margin-left: 1em;">Оптимальный маршрут</span>
         </div>
@@ -109,6 +109,14 @@ $this->registerCssFile('/css/roads.css');
                     <div class="info-text dgc">30 мин Площади</div>
                     <div class="name">Красная площадь</div>
                     <div class="address dgc">Красная площадь, Москва</div>
+                </div>
+            </div>
+            <div class="transition flexx">
+                <div class="img-transition">
+                    <img src="img/person.png">
+                </div>
+                <div class="info-transition dgc">
+                    800 м, 10 мин.
                 </div>
             </div>
         </div>

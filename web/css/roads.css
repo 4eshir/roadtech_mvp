@@ -124,13 +124,13 @@ select {
     border: solid 3px #FFCF08;
 }
 
-input[type=checkbox]{
+#container-switch input[type=checkbox]{
     height: 0;
     width: 0;
     visibility: hidden;
 }
 
-label {
+#container-switch label {
     cursor: pointer;
     text-indent: -9999px;
     width: 2.5em;
@@ -141,7 +141,7 @@ label {
     position: relative;
 }
 
-label:after {
+#container-switch label:after {
     content: '';
     position: absolute;
     top: 0px;
@@ -153,16 +153,16 @@ label:after {
     transition: 0.3s;
 }
 
-input:checked + label {
+#container-switch input:checked + label {
     background: #FFCF08;
 }
 
-input:checked + label:after {
+#container-switch input:checked + label:after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
 }
 
-label:active:after {
+#container-switch label:active:after {
     width: 130px;
 }
 
@@ -172,7 +172,7 @@ label:active:after {
 }
 
 .info-dot {
-    margin-right: 1.5em;
+    margin-left: 1.5em;
 }
 
 .map {
@@ -182,3 +182,21 @@ label:active:after {
     margin: 0 2em;
 }
 
+.img-prev-dot {
+    position: relative;
+    display: inline-block;
+}
+
+.number-dot {
+    position: absolute;
+    bottom: -10px;
+    right: -5px;
+    padding: 5px 10px;
+    border-radius: 100%;
+}
+
+.info-transition {
+    align-items: center;
+    display: flex;
+    margin-left: 3em;
+}
