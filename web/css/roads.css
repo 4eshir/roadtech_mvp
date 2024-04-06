@@ -219,8 +219,20 @@ select {
 .like {
     margin-right: 1em;
     background: rgba(169, 169, 169, 0.5);
+    padding: 0.5em;
+    border-radius: 10px;
 }
 
 .social {
     margin-bottom: -3.5em;
+}
+
+.heart {
+    fill: transparent;
+    stroke: white;
+    transition: fill 0.3s;
+}
+.heart:hover {
+    fill: red;
+    stroke: none;
 }
