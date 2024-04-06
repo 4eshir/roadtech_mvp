@@ -62,6 +62,7 @@ class RouteController extends Controller
     {
         $model = $this->findModel($id);
         $points = $model->getUserPoints();
+        $pointsPure = $model->getPoints();
         $tasks = $model->getTasks();
         $completeTasks = $model->getCompleteTasks();
         $addPointForm = new AddPointForm();
@@ -71,6 +72,7 @@ class RouteController extends Controller
         return $this->render('view', [
             'model' => $model,
             'points' => $points,
+            'pointsPure' => $pointsPure,
             'tasks' => $tasks,
             'completeTasks' => $completeTasks,
             'result' => $result,

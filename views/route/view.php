@@ -13,6 +13,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Route $model */
 /** @var app\models\RoutePointUser[] $points */
+/** @var app\models\RoutePoint[] $pointsPure */
 /** @var app\models\Task[] $tasks */
 /** @var app\models\TaskRouteUser[] $completeTasks */
 /** @var app\models\forms\RouteResultForm $result */
@@ -182,21 +183,32 @@ $this->registerCssFile('/css/roads.css');
                 <td><b>QR-код</b></td>
                 <td><b>Статус</b></td>
             </tr>
-            <?php foreach ($points as $point): ?>
-                <tr>
-                    <td><?= $point->routePoint->step; ?></td>
-                    <td><?= $point->routePoint->point->name; ?></td>
-                    <td><?= $point->routePoint->point->address; ?></td>
-                    <td>
-                        <?php if ($point->routePoint->qr_code): ?>
-                            <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
-                                <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
-                            </a>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= $point->statusPretty; ?></td>
-                </tr>
-            <?php endforeach; ?>
+            <?= var_dump(count($points)) ?>
+            <?php if (count($points) > 0): ?>
+                <?php foreach ($points as $point): ?>
+                    <tr>
+                        <td><?= $point->routePoint->step; ?></td>
+                        <td><?= $point->routePoint->point->name; ?></td>
+                        <td><?= $point->routePoint->point->address; ?></td>
+                        <td>
+                            <?php if ($point->routePoint->qr_code): ?>
+                                <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
+                                    <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
+                                </a>
+                            <?php endif; ?>
+                        </td>
+                        <td><?= $point->statusPretty; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php foreach ($pointsPure as $point): ?>
+                    <tr>
+                        <td><?= $point->step; ?></td>
+                        <td><?= $point->point->name; ?></td>
+                        <td><?= $point->point->address; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </table>
 
         <h3>Задания на маршруте</h3>

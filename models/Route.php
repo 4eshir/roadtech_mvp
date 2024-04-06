@@ -181,6 +181,11 @@ class Route extends \yii\db\ActiveRecord
         $this->save();
     }
 
+    public function pointsCount()
+    {
+        return count($this->getPoints());
+    }
+
     //-------------------------
 
     public function beforeDelete()
