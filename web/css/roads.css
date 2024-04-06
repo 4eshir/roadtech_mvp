@@ -1,0 +1,94 @@
+.section-link a {
+    color: #747474;
+    text-decoration: none;
+    position: relative;
+    font-weight: 600;
+    margin: 1em 1em 1em 0;
+}
+.section-link a:hover {
+    color: black;
+    text-decoration: underline #FFCF08;
+    text-decoration-thickness: 3px;
+}
+select {
+    width: 300px;
+    border-radius: 7px;
+    border: 1px solid #F5F5F5;
+    overflow: hidden;
+    font-weight: 500;
+    position: relative;
+    height: 2em;
+    max-height: calc(40px* 8);
+    transition: 0.2s;
+    margin: 1em 0.5em 1em 0!important;
+    color: #747474;
+}
+.card-rout {
+    border: solid 1px #F5F5F5;
+    border-radius: 20px;
+}
+.text-area {
+    background: #F5F5F5;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+}
+.city {
+    padding: 1em;
+    font-weight: 700;
+    font-size: large;
+}
+.btn-rout {
+    background: #FFCF08;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 2.5em;
+}
+.btn-area {
+    padding: 1em;
+}
+.info {
+    padding: 0 1em;
+    margin-bottom: 2em;
+    display: flex;
+}
+.info div {
+    padding-right: 1em;
+}
+.mark-card {
+    width: 24px;
+    padding-right: 5px;
+}
+
+.cards {
+    margin: 2em 0;/*!importan;*/
+}
+.picture {
+    background: url("/img/city.png") no-repeat;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    background-size: cover;
+}
+
+.flexx {
+    display: flex;
+}
+
+.link-back {
+    display: flex;
+    align-items: center;
+}
+
+.action-btn {
+    background: url("/img/action-btn.png") no-repeat;
+    width: 10em;
+    height: 2.5em;
+    background-size: 5em;
+    display: flex;
+    margin-top: auto;
+}
+
+.space{
+    justify-content: space-between;
+}
