@@ -73,8 +73,6 @@ $this->registerCssFile('./css/roads.css');
         </div>
     </div>
 
-    <?= Html::a('Опросник', Url::to(['questionnaire']), ['class' => 'btn btn-primary']) ?>
-
     <div class="row">
         <?php foreach ($routes as $route): ?>
         <div class="col-md-4 col-sm-6 cards">

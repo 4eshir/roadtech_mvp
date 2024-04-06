@@ -10,29 +10,36 @@ use yii\helpers\Html;
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'type', ['options' => ['id' => 'q1', 'style' => 'display: block']])->radioList([
-    10 => 'Туристический поход',
-    20 => 'Семейная прогулка с детьми',
-    30 => 'Оздоровительная прогулка',
-    40 => 'Романтическая прогулка'
-], ['separator' => '<br>']) ?>
+<div id="q1" style="display: block">
+    <?= $form->field($model, 'type')->radioList([
+        10 => 'Туристический поход',
+        20 => 'Семейная прогулка с детьми',
+        30 => 'Оздоровительная прогулка',
+        40 => 'Романтическая прогулка'
+    ]) ?>
+</div>
 
-<?= $form->field($model, 'level', ['options' => ['id' => 'q2', 'style' => 'display: none']])->radioList([
-    1 => '<7000 шагов',
-    2 => '7000 - 15000 шагов',
-    3 => '15000+ шагов'
-], ['separator' => '<br>']) ?>
+<div id="q2"  style="display: none">
+    <?= $form->field($model, 'level')->radioList([
+        1 => '<7000 шагов',
+        2 => '7000 - 15000 шагов',
+        3 => '15000+ шагов'
+    ]) ?>
+</div>
 
-<?= $form->field($model, 'duration', ['options' => ['id' => 'q3', 'style' => 'display: none']])->radioList([
-    1 => 'В течение 1 дня',
-    2 => '2 дня',
-    3 => '3+ дней'
-], ['separator' => '<br>']) ?>
+<div id="q3" style="display: none">
+    <?= $form->field($model, 'duration')->radioList([
+        1 => 'В течение 1 дня',
+        2 => '2 дня',
+        3 => '3+ дней'
+    ]) ?>
+</div>
 
-<?= Html::a('Далее', '#', ['class' => 'btn btn-primary', 'onclick' => 'showNext()', 'id' => 'nextBtn']) ?>
+
+<?= Html::a('Далее', '#', ['class' => 'btn btn-link-main', 'onclick' => 'showNext()', 'id' => 'nextBtn']) ?>
 
 <div class="form-group">
-    <?= Html::submitButton('Создать маршрут', ['class' => 'btn btn-success', 'id' => 'finalBtn', 'style' => 'display: none']) ?>
+    <?= Html::submitButton('Создать маршрут', ['class' => 'btn btn-link-main', 'id' => 'finalBtn', 'style' => 'display: none']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

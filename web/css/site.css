@@ -86,3 +86,96 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.site-index {
+    background: url("../img/bg.png") no-repeat;
+    background-position: center;
+    height: 50em;
+}
+
+.btn-test {
+    width: 25%;
+    margin: 0.5em;
+    align-items: center;
+    display: flex;
+}
+
+.btn-rout-main {
+    background: #FFCF08;
+    width: 20%;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 2.5em;
+    position: absolute;
+    top: 31em;
+    left: 15em;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+}
+
+.form-check-input:checked {
+    background-color: #FFCF08;
+    border-color: #FFCF08;
+}
+
+.form-check-input:focus {
+    border-color: #FFEB99!important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 235, 153, 0.5);
+}
+
+.btn-rout-main a {
+    color: black;
+    text-decoration: none;
+}
+
+.btn-link-main {
+    color: black;
+    text-decoration: none;
+    background: #FFCF08;
+    width: calc(100% + 4em);
+    margin: 1em -2em;
+}
+
+.btn-link-main:hover {
+    color: black;
+    text-decoration: none;
+    background: #FFCF08;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+/* Поднять контент выше */
+#modal .modal-body {
+    padding: 20px; /* добавляем отступы, если нужно */
+    top: -3em;
+}
+
+/* Необходимые стили для кнопки закрытия */
+#modal .modal-footer {
+    padding: 15px; /* добавляем отступы, если нужно */
+}
+
+.form-label {
+    font-size: 2em;
+    text-align: center;
+}
+
+.btn-close {
+    z-index: 100;
+}
+
+.modal-content {
+    height: 15em;
+}
+
+.modal-dialog {
+    margin: calc(20%) auto;
+}
