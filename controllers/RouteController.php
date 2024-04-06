@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\forms\AddPointForm;
 use app\models\forms\QuestionnaireForm;
 use app\models\forms\RouteForm;
-use app\models\route;
+use app\models\Route;
 use app\models\RoutePoint;
 use app\models\RoutePointUser;
 use app\models\search\SearchRoute;

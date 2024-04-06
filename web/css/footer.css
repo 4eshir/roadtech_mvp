@@ -37,7 +37,7 @@
 }
 
 .icone-media-link {
-    background: url("/img/icons-media.png") no-repeat;
+    background: url("../img/icons-media.png") no-repeat;
     background-size: 10em;
     background-position-x: right;
 }

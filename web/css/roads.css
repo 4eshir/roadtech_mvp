@@ -30,6 +30,7 @@ select {
 .card-rout {
     border: solid 1px #F5F5F5;
     border-radius: 20px;
+    margin-top: 2em;
 }
 .text-area {
     background: #F5F5F5;
@@ -68,7 +69,7 @@ select {
     margin: 2em 0;/*!importan;*/
 }
 .picture {
-    background: url("/img/city.png") no-repeat;
+    background: url("../img/city.png") no-repeat;
     height: 260px;
     overflow: hidden;
     border-radius: 20px 20px 0 0;
@@ -85,7 +86,7 @@ select {
 }
 
 .action-btn {
-    background: url("/img/action-btn.png") no-repeat;
+    background: url("../img/action-btn.png") no-repeat;
     width: 10em;
     height: 2.5em;
     background-size: 5em;
@@ -102,6 +103,12 @@ select {
     border-radius: 10px;
     padding: 1em;
     margin-right: 1em;
+}
+
+.btn-rout-link {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
 }
 
 .dgc {
@@ -176,7 +183,7 @@ select {
 }
 
 .map {
-    background: url(/img/map.png) no-repeat;
+    background: url("../img/map.png") no-repeat;
     background-size: 100%;
     width: 80em;
     margin: 0 2em;
@@ -199,4 +206,33 @@ select {
     align-items: center;
     display: flex;
     margin-left: 3em;
+}
+
+.rating {
+    background: #007470;
+    padding: 0.5em;
+    border-radius: 10px;
+    color: white;
+    margin-left: 1em;
+}
+
+.like {
+    margin-right: 1em;
+    background: rgba(169, 169, 169, 0.5);
+    padding: 0.5em;
+    border-radius: 10px;
+}
+
+.social {
+    margin-bottom: -3.5em;
+}
+
+.heart {
+    fill: transparent;
+    stroke: white;
+    transition: fill 0.3s;
+}
+.heart:hover {
+    fill: red;
+    stroke: none;
 }

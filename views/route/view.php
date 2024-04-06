@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerMetaTag(['name' => 'csrf-param', 'content' => Yii::$app->request->csrfParam]);
 $this->registerMetaTag(['name' => 'csrf-token', 'content' => Yii::$app->request->getCsrfToken()]);
 
-$this->registerCssFile('/css/roads.css');
+$this->registerCssFile('./css/roads.css');
 ?>
 
 <div class="flexx">
@@ -51,7 +51,7 @@ $this->registerCssFile('/css/roads.css');
         <div>
             <div class="flexx space">
                 <div class="flexx">
-                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="/mark/icons8-стрелка-влево-30.png"></a></div>
+                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
                     <div class="road-name">
                         <h1><?= Html::encode($this->title) ?></h1>
                     </div>
@@ -73,7 +73,7 @@ $this->registerCssFile('/css/roads.css');
         <div class="road-link flexx">
             <div class="type-road-link">
                 <a href="#">
-                    <img src="/mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                    <img src="./mark/icons8-ходьба-50.png" class="mark-card">40 мин.
                     <span style="lgc">
                         <?php echo $model->getPrettyDistance(); ?>
                     </span>
@@ -81,7 +81,7 @@ $this->registerCssFile('/css/roads.css');
             </div>
             <div class="type-road-link">
                 <a href="#">
-                    <img src="/mark/icons8-автобус-50.png" class="mark-card">30 мин.
+                    <img src="./mark/icons8-автобус-50.png" class="mark-card">30 мин.
                     <span style="lgc">
                         <?php echo $model->getPrettyDistance(); ?>
                     </span>
@@ -102,7 +102,7 @@ $this->registerCssFile('/css/roads.css');
             <div class="dot flexx">
                 <div class="img-prev-dot">
                     <div class="img-dot">
-                        <img src="img/dot.png">
+                        <img src="./img/dot.png">
                     </div>
                     <div class="number-dot">1</div>
                 </div>
@@ -114,7 +114,7 @@ $this->registerCssFile('/css/roads.css');
             </div>
             <div class="transition flexx">
                 <div class="img-transition">
-                    <img src="img/person.png">
+                    <img src="./img/person.png">
                 </div>
                 <div class="info-transition dgc">
                     800 м, 10 мин.
