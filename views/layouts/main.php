@@ -20,7 +20,7 @@ $this->registerMetaTag(['name' => 'description', 'content' => $this->params['met
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
 
-$this->registerCssFile('/css/footer.css');
+$this->registerCssFile('./css/footer.css');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
