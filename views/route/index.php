@@ -35,35 +35,43 @@ $this->registerCssFile('./css/roads.css');
         <a href="#">Рекомендации</a>
     </div>
 
-    <?php
-    $data = [
-        '1' => 'Москва',
-        '2' => 'Санкт-Петербург',
-        '3' => 'Калининград',
-        '4' => 'Сочи',
-    ];
+    <div class="flexx">
+        <?php
+        $data = [
+            '1' => 'Москва',
+            '2' => 'Санкт-Петербург',
+            '3' => 'Калининград',
+            '4' => 'Сочи',
+        ];
 
-    // Опции для выпадающего списка
-    $options = ['prompt' => 'Все направления'];
+        // Опции для выпадающего списка
+        $options = ['prompt' => 'Все направления'];
 
-    // Вывод выпадающего списка
-    echo Html::dropDownList('select', null, $data, $options);
-    ?>
+        // Вывод выпадающего списка
+        echo Html::dropDownList('select', null, $data, $options);
+        ?>
 
-    <?php
-    $data = [
-        '1' => 'Туристическая',
-        '2' => 'Семейная',
-        '3' => 'На велосипеде',
-        '4' => 'Историческая',
-    ];
+        <?php
+        $data = [
+            '1' => 'Туристическая',
+            '2' => 'Семейная',
+            '3' => 'На велосипеде',
+            '4' => 'Историческая',
+        ];
 
-    // Опции для выпадающего списка
-    $options = ['prompt' => 'Тематика'];
+        // Опции для выпадающего списка
+        $options = ['prompt' => 'Тематика'];
 
-    // Вывод выпадающего списка
-    echo Html::dropDownList('select', null, $data, $options);
-    ?>
+        // Вывод выпадающего списка
+        echo Html::dropDownList('select', null, $data, $options);
+        ?>
+
+        <div class="btn-create">
+            <div class="btn-rout">
+                <?= Html::a('Создать свой маршрут', ['create'], ['class' => 'btn-rout-link']) ?>
+            </div>
+        </div>
+    </div>
 
     <?= Html::a('Опросник', Url::to(['questionnaire']), ['class' => 'btn btn-primary']) ?>
 
@@ -83,9 +91,11 @@ $this->registerCssFile('./css/roads.css');
                 <div class="text-area">
                     <div class="city"><?= $route->name; ?></div>
                     <div class="info">
+                        <div class="type"><img class="mark-card" src="./mark/icons8-маршрут-50.png">Маршрут</div>
                         <div class="info-city"><img class="mark-card" src="./mark/icons8-visit-50.png">Астрахань</div>
                         <div class="days"><img class="mark-card" src="./mark/icons8-время-24.png">1 день</div>
                         <div class="dots"><img class="mark-card" src="./mark/icons8-флаг-2-24.png"><?= $route->pointsCount(); ?> мест</div>
+                        <div class="type"><img class="mark-card" src="./mark/icons8-книга-50.png">Пешеходные, авторские</div>
                     </div>
                     <div class="btn-area">
                         <div class="btn-rout">
@@ -115,32 +125,6 @@ $this->registerCssFile('./css/roads.css');
     ?>
 
     <?php /*echo Html::button('Открыть дополнительное окно', ['class' => 'btn btn-primary', 'id' => 'open-modal-btn'])*/ ?>
-
-    <div>
-        <p>
-            <?= Html::a('Create Route', ['create'], ['class' => 'btn btn-success']) ?>
-        </p>
-    </div>
-
-
-
-    <div>
-        <?php
-        $counter = 0;
-        foreach ($routes as $route): ?>
-        <?php if ($counter == 3): ?>
-        <?php $counter = 0; ?>
-    </div>
-    <div>
-        <?php endif; ?>
-
-
-        <div class="card-route">
-            <?= $route->name; ?>
-            <?= Html::a('Посмотреть', Url::to(['view', 'id' => $route->id]), ['class' => 'btn btn-primary']); ?>
-        </div>
-        <?php endforeach; ?>
-    </div>
 
 </div>
 <?php ActiveForm::end(); ?>
