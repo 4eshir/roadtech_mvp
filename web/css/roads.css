@@ -21,7 +21,7 @@ select {
     overflow: hidden;
     font-weight: 500;
     position: relative;
-    height: 2em;
+    height: 2.5em;
     max-height: calc(40px* 8);
     transition: 0.2s;
     margin: 1em 0.5em 1em 0!important;
@@ -56,6 +56,7 @@ select {
     padding: 0 1em;
     margin-bottom: 2em;
     display: flex;
+    flex-wrap: wrap;
 }
 .info div {
     padding-right: 1em;
@@ -235,4 +236,11 @@ select {
 .heart:hover {
     fill: red;
     stroke: none;
+}
+
+.btn-create {
+    width: 25%;
+    margin: 0.5em;
+    align-items: center;
+    display: flex;
 }
