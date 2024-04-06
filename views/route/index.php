@@ -65,6 +65,8 @@ $this->registerCssFile('/css/roads.css');
     echo Html::dropDownList('select', null, $data, $options);
     ?>
 
+    <?= Html::a('Опросник', Url::to(['questionnaire']), ['class' => 'btn btn-primary']) ?>
+
     <div class="row">
         <div class="col-md-4 col-sm-6 cards">
             <div class="card-rout">

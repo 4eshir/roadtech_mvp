@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\forms\AddPointForm;
+use app\models\forms\QuestionnaireForm;
 use app\models\forms\RouteForm;
 use app\models\route;
 use app\models\RoutePoint;
@@ -68,8 +69,6 @@ class RouteController extends Controller
         $addPointForm = new AddPointForm();
 
         $result = $model->getResult();
-
-        //var_dump(count($points));
 
         return $this->render('view', [
             'model' => $model,
@@ -182,6 +181,23 @@ class RouteController extends Controller
     private function addPointOptimal($routeId, $pointId)
     {
 
+    }
+
+    public function actionQuestionnaire()
+    {
+        $model = new QuestionnaireForm();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                return $this->render('index', [
+                    'routes' => $model->search()
+                ]);
+            }
+        }
+
+        return $this->render('questionnaire', [
+            'model' => $model,
+        ]);
     }
 
     /**
