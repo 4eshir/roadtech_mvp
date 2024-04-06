@@ -186,6 +186,14 @@ class GodController extends Controller
         $taskRoute->task_id = $taskId;
         $taskRoute->save();
 
+        //если маршрут привязан к пользователю, то создаем привязку задания
+        if (UserRoute::find()->where(['user_id' => User::getCurrentUser()->id])->andWhere(['route_id' => $routeId])->one()) {
+            $taskRouteUser = new TaskRouteUser();
+            $taskRouteUser->task_route_id = $taskRoute->id;
+            $taskRouteUser->user_id = User::getCurrentUser()->id;
+            $taskRouteUser->save();
+        }
+
         Yii::$app->session->setFlash('success', 'Задача успешно привязана');
 
         return $this->redirect(['index']);
