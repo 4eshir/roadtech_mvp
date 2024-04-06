@@ -22,7 +22,7 @@ $script = "$(document).ready(function() {
     });";
 $this->registerJs($script, View::POS_READY);
 
-$this->registerCssFile('/css/roads.css');
+$this->registerCssFile('./css/roads.css');
 ?>
 
 <div class="route-index">

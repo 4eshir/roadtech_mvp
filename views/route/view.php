@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->registerMetaTag(['name' => 'csrf-param', 'content' => Yii::$app->request->csrfParam]);
 $this->registerMetaTag(['name' => 'csrf-token', 'content' => Yii::$app->request->getCsrfToken()]);
 
-$this->registerCssFile('/css/roads.css');
+$this->registerCssFile('./css/roads.css');
 ?>
 
 <div class="flexx">
