@@ -2,9 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\forms\AddPointForm;
 use app\models\forms\RouteForm;
 use app\models\route;
+use app\models\RoutePoint;
+use app\models\RoutePointUser;
 use app\models\search\SearchRoute;
+use app\models\User;
+use http\Exception\RuntimeException;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,9 +61,10 @@ class RouteController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $points = $model->getPoints();
+        $points = $model->getUserPoints();
         $tasks = $model->getTasks();
         $completeTasks = $model->getCompleteTasks();
+        $addPointForm = new AddPointForm();
 
         $result = $model->getResult();
 
@@ -67,6 +74,7 @@ class RouteController extends Controller
             'tasks' => $tasks,
             'completeTasks' => $completeTasks,
             'result' => $result,
+            'addPointForm' => $addPointForm,
         ]);
     }
 
@@ -89,6 +97,87 @@ class RouteController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAddPoint()
+    {
+        $model = new AddPointForm();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                switch ($model->method) {
+                    case 1:
+                        $this->addPointToEnd($model->routeId, $model->pointId);
+                        break;
+                    case 2:
+                        $this->addPointNext($model->routeId, $model->pointId);
+                        break;
+                    case 3:
+                        $this->addPointOptimal($model->routeId, $model->pointId);
+                        break;
+                    default:
+                        throw new RuntimeException('Неизвестный способ добавления точки');
+                }
+            }
+        }
+
+        $route = Route::find()->where(['id' => $model->routeId])->one();
+        $route->calculateDistance();
+
+        return $this->redirect(['view', 'id' => $model->routeId]);
+
+    }
+
+    private function addPointToEnd($routeId, $pointId)
+    {
+        $lastStep = RoutePoint::find()->where(['route_id' => $routeId])->orderBy(['step' => SORT_DESC])->one()->step;
+        $newPoint = new RoutePoint();
+        $newPoint->route_id = $routeId;
+        $newPoint->step = $lastStep + 1;
+        $newPoint->point_id = $pointId;
+        $newPoint->save();
+
+        $rpUser = new RoutePointUser();
+        $rpUser->user_id = User::getCurrentUser()->id;
+        $rpUser->route_point_id = $newPoint->id;
+        $rpUser->status = 1;
+        $rpUser->save();
+    }
+
+    private function addPointNext($routeId, $pointId)
+    {
+        $routePointUser = RoutePointUser::find()
+            ->joinWith('routePoint routePoint')
+            ->where(['routePoint.route_id' => $routeId])
+            ->andWhere(['user_id' => User::getCurrentUser()->id])
+            ->andWhere(['status' => 2])
+            ->orderBy(['routePoint.step' => SORT_DESC])->one();
+
+        $routePointRecount = RoutePoint::find()->where(['>', 'step', $routePointUser->routePoint->step + 1])->all();
+        foreach ($routePointRecount as $point) {
+            $point->step = $point->step + 1;
+            $point->save();
+        }
+
+        $newPoint = new RoutePoint();
+        $newPoint->route_id = $routeId;
+        $newPoint->step = $routePointUser->routePoint->step + 2;
+        $newPoint->point_id = $pointId;
+        $newPoint->save();
+
+        $rpUser = new RoutePointUser();
+        $rpUser->user_id = User::getCurrentUser()->id;
+        $rpUser->route_point_id = $newPoint->id;
+        $rpUser->status = 1;
+        $rpUser->save();
+    }
+
+    private function addPointOptimal($routeId, $pointId)
+    {
+
     }
 
     /**

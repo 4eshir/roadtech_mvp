@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\components\DistanceStub;
 use app\models\forms\RouteResultForm;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -105,9 +106,14 @@ class Route extends \yii\db\ActiveRecord
 
     //-------------------------
 
-    public function getPoints()
+    public function getUserPoints()
     {
         return RoutePointUser::find()->joinWith('routePoint routePoint')->where(['routePoint.route_id' => $this->id])->orderBy(['routePoint.step' => SORT_ASC])->all();
+    }
+
+    public function getPoints()
+    {
+        return RoutePoint::find()->where(['route_id' => $this->id])->orderBy(['step' => SORT_ASC])->all();
     }
 
     public function getTasks()
@@ -164,11 +170,22 @@ class Route extends \yii\db\ActiveRecord
         return new RouteResultForm($tasks, $completedTasks, $points, $pointsCompleted, $rewards);
     }
 
+    public function calculateDistance()
+    {
+        $sumDistance = 0;
+        $points = $this->getPoints();
+        for ($i = 0; $i < count($points) - 1; $i++) {
+            $sumDistance += DistanceStub::getDistanceBetweenPoints($points[$i]->point, $points[$i + 1]->point);
+        }
+        $this->distance = $sumDistance;
+        $this->save();
+    }
+
     //-------------------------
 
     public function beforeDelete()
     {
-        $points = $this->getPoints();
+        $points = $this->getUserPoints();
         foreach ($points as $point) {
             $point->delete();
         }
