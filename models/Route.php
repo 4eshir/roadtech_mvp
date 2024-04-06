@@ -108,7 +108,7 @@ class Route extends \yii\db\ActiveRecord
 
     public function getUserPoints()
     {
-        return RoutePointUser::find()->joinWith('routePoint routePoint')->where(['routePoint.route_id' => $this->id])->orderBy(['routePoint.step' => SORT_ASC])->all();
+        return RoutePointUser::find()->joinWith('routePoint routePoint')->where(['routePoint.route_id' => $this->id])->andWhere(['user_id' => User::getCurrentUser()->id])->orderBy(['routePoint.step' => SORT_ASC])->all();
     }
 
     public function getPoints()

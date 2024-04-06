@@ -69,6 +69,8 @@ class RouteController extends Controller
 
         $result = $model->getResult();
 
+        //var_dump(count($points));
+
         return $this->render('view', [
             'model' => $model,
             'points' => $points,
