@@ -57,7 +57,6 @@ class RouteForm extends Model
         $check = $entity->save();
 
         $counter = 1;
-        $sumDistance = 0;
         if (!empty($this->pointIds)) {
             foreach ($this->pointIds as $point) {
                 $routePoint = new RoutePoint();
@@ -68,13 +67,9 @@ class RouteForm extends Model
                 $counter++;
             }
 
-            $points = $entity->getPoints();
-            for ($i = 0; $i < count($points) - 1; $i++) {
-                $sumDistance += DistanceStub::getDistanceBetweenPoints($points[$i]->point, $points[$i + 1]->point);
-            }
         }
 
-        $entity->distance = $sumDistance;
+        $entity->calculateDistance();
         $entity->save();
 
         return $check;

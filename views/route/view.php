@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Point;
+use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use app\models\Route;
@@ -14,6 +16,7 @@ use yii\widgets\DetailView;
 /** @var app\models\Task[] $tasks */
 /** @var app\models\TaskRouteUser[] $completeTasks */
 /** @var app\models\forms\RouteResultForm $result */
+/** @var app\models\forms\AddPointForm $addPointForm */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Мои планы', 'url' => ['index']];
@@ -140,6 +143,27 @@ $this->registerCssFile('/css/roads.css');
             ],
         ]) ?>
 
+        <?php
+        $points = [];
+        foreach (Point::find()->all() as $point)
+            $points[$point->id] = $point->name;
+
+        $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+        <?= $form->field($addPointForm, 'pointId')->radioList($points) ?>
+        <?= $form->field($addPointForm, 'method')->dropDownList([
+            1 => 'Добавить в конец маршрута',
+            2 => 'Добавить следующей точкой маршрута',
+            3 => 'Добавить в оптимальное место маршрута',
+        ]) ?>
+        <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+        <div class="form-group">
+            <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
         <h3>Ключевые точки маршрута</h3>
 
         <table class="table table-striped">
@@ -229,9 +253,6 @@ $this->registerCssFile('/css/roads.css');
         <?php endif; ?>
 
     </div>
-    <div class="map"></div>
-</div>
-
 
 
 <?php
