@@ -71,15 +71,15 @@ $this->registerCssFile('./css/roads.css');
             <div class="card-rout">
                 <div class="social flexx space">
                     <div class="rating">7.4</div>
-                    <div class="like"><img src="mark/icons8-лайк-с-заливкой-24.png"></div>
+                    <div class="like"><img src="./mark/icons8-лайк-с-заливкой-24.png"></div>
                 </div>
                 <div class="picture"></div>
                 <div class="text-area">
                     <div class="city"><?= $route->name; ?></div>
                     <div class="info">
-                        <div class="info-city"><img class="mark-card" src="/mark/icons8-visit-50.png">Астрахань</div>
-                        <div class="days"><img class="mark-card" src="/mark/icons8-время-24.png">1 день</div>
-                        <div class="dots"><img class="mark-card" src="/mark/icons8-флаг-2-24.png"><?= $route->pointsCount(); ?> мест</div>
+                        <div class="info-city"><img class="mark-card" src="./mark/icons8-visit-50.png">Астрахань</div>
+                        <div class="days"><img class="mark-card" src="./mark/icons8-время-24.png">1 день</div>
+                        <div class="dots"><img class="mark-card" src="./mark/icons8-флаг-2-24.png"><?= $route->pointsCount(); ?> мест</div>
                     </div>
                     <div class="btn-area">
                         <div class="btn-rout">

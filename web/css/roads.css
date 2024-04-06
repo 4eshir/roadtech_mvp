@@ -69,7 +69,7 @@ select {
     margin: 2em 0;/*!importan;*/
 }
 .picture {
-    background: url("/img/city.png") no-repeat;
+    background: url("./img/city.png") no-repeat;
     height: 260px;
     overflow: hidden;
     border-radius: 20px 20px 0 0;
@@ -86,7 +86,7 @@ select {
 }
 
 .action-btn {
-    background: url("/img/action-btn.png") no-repeat;
+    background: url("./img/action-btn.png") no-repeat;
     width: 10em;
     height: 2.5em;
     background-size: 5em;
@@ -183,7 +183,7 @@ select {
 }
 
 .map {
-    background: url(/img/map.png) no-repeat;
+    background: url("./img/map.png") no-repeat;
     background-size: 100%;
     width: 80em;
     margin: 0 2em;
