@@ -66,60 +66,30 @@ $this->registerCssFile('/css/roads.css');
     ?>
 
     <div class="row">
+        <?php foreach ($routes as $route): ?>
         <div class="col-md-4 col-sm-6 cards">
             <div class="card-rout">
+                <div class="social flexx space">
+                    <div class="rating">7.4</div>
+                    <div class="like"><img src="mark/icons8-лайк-с-заливкой-24.png"></div>
+                </div>
                 <div class="picture"></div>
                 <div class="text-area">
-                    <div class="city">Москва</div>
+                    <div class="city"><?= $route->name; ?></div>
                     <div class="info">
-                        <div class="info-city"><img class="mark-card" src="/mark/icons8-visit-50.png">Москва</div>
-                        <div class="days"><img class="mark-card" src="/mark/icons8-время-24.png">3 дня</div>
-                        <div class="dots"><img class="mark-card" src="/mark/icons8-флаг-2-24.png">18 мест</div>
+                        <div class="info-city"><img class="mark-card" src="/mark/icons8-visit-50.png">Астрахань</div>
+                        <div class="days"><img class="mark-card" src="/mark/icons8-время-24.png">1 день</div>
+                        <div class="dots"><img class="mark-card" src="/mark/icons8-флаг-2-24.png"><?= $route->pointsCount(); ?> мест</div>
                     </div>
                     <div class="btn-area">
                         <div class="btn-rout">
-                            Открыть план
+                            <?= Html::a('Посмотреть', Url::to(['view', 'id' => $route->id]), ['class' => 'btn-rout-link']); ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6 cards">
-            <div class="card-rout">
-                <div class="picture"></div>
-                <div class="text-area">
-                    <div class="city">Калининград</div>
-                    <div class="info">
-                        <div class="info-city"><img class="mark-card" src="/mark/icons8-visit-50.png">Калининград</div>
-                        <div class="days"><img class="mark-card" src="/mark/icons8-время-24.png">3 дня</div>
-                        <div class="dots"><img class="mark-card" src="/mark/icons8-флаг-2-24.png">18 мест</div>
-                    </div>
-                    <div class="btn-area">
-                        <div class="btn-rout">
-                            Открыть план
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 cards">
-            <div class="card-rout">
-                <div class="picture"></div>
-                <div class="text-area">
-                    <div class="city">Санкт-Петербург</div>
-                    <div class="info">
-                        <div class="info-city"><img class="mark-card" src="/mark/icons8-visit-50.png">Санкт-Петербург</div>
-                        <div class="days"><img class="mark-card" src="/mark/icons8-время-24.png">3 дня</div>
-                        <div class="dots"><img class="mark-card" src="/mark/icons8-флаг-2-24.png">18 мест</div>
-                    </div>
-                    <div class="btn-area">
-                        <div class="btn-rout">
-                            Открыть план
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 
 
@@ -157,6 +127,7 @@ $this->registerCssFile('/css/roads.css');
     </div>
     <div>
         <?php endif; ?>
+
 
         <div class="card-route">
             <?= $route->name; ?>

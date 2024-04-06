@@ -30,6 +30,7 @@ select {
 .card-rout {
     border: solid 1px #F5F5F5;
     border-radius: 20px;
+    margin-top: 2em;
 }
 .text-area {
     background: #F5F5F5;
@@ -102,6 +103,12 @@ select {
     border-radius: 10px;
     padding: 1em;
     margin-right: 1em;
+}
+
+.btn-rout-link {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
 }
 
 .dgc {
@@ -199,4 +206,21 @@ select {
     align-items: center;
     display: flex;
     margin-left: 3em;
+}
+
+.rating {
+    background: #007470;
+    padding: 0.5em;
+    border-radius: 10px;
+    color: white;
+    margin-left: 1em;
+}
+
+.like {
+    margin-right: 1em;
+    background: rgba(169, 169, 169, 0.5);
+}
+
+.social {
+    margin-bottom: -3.5em;
 }
