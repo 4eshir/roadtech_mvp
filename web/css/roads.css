@@ -1,3 +1,7 @@
+.section-link {
+    margin: 1em 0;
+}
+
 .section-link a {
     color: #747474;
     text-decoration: none;
@@ -92,3 +96,89 @@ select {
 .space{
     justify-content: space-between;
 }
+
+.type-road-link {
+    background: #F5F5F5;
+    border-radius: 10px;
+    padding: 1em;
+    margin-right: 1em;
+}
+
+.dgc {
+    color: #747474;
+}
+
+.lgc {
+    color: #F5F5F5;
+}
+
+.road-link a {
+    color: #747474;
+    text-decoration: none;
+    position: relative;
+    font-weight: 600;
+    margin: 1em 1em 1em 0;
+}
+
+.type-road-link:hover {
+    border: solid 3px #FFCF08;
+}
+
+input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 2.5em;
+    height: 1.5em;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+label:after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1.5em;
+    height: 1.5em;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked + label {
+    background: #FFCF08;
+}
+
+input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 130px;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 1.3em;
+}
+
+.info-dot {
+    margin-right: 1.5em;
+}
+
+.map {
+    background: url(/img/map.png) no-repeat;
+    background-size: 100%;
+    width: 80em;
+    margin: 0 2em;
+}
+

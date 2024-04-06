@@ -26,165 +26,212 @@ $this->registerMetaTag(['name' => 'csrf-token', 'content' => Yii::$app->request-
 $this->registerCssFile('/css/roads.css');
 ?>
 
+<div class="flexx">
+    <div class="route-view">
+        <?php
+        $pick = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 2])->one();
+        $pickText = '';
+        $bgColor = '';
+        if ($pick) {
+            $pickText = 'Вы проходите данный маршрут';
+            $bgColor = 'bg-warning text-dark';
+        }
 
-<div class="route-view">
-    <?php
-    $pick = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 2])->one();
-    $pickText = '';
-    $bgColor = '';
-    if ($pick) {
-        $pickText = 'Вы проходите данный маршрут';
-        $bgColor = 'bg-warning text-dark';
-    }
+        $end = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 3])->one();
+        if ($end) {
+            $pickText = 'Вы успешно завершили данный маршрут';
+            $bgColor = 'bg-success text light';
+        }
+        ?>
 
-    $end = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 3])->one();
-    if ($end) {
-        $pickText = 'Вы успешно завершили данный маршрут';
-        $bgColor = 'bg-success text light';
-    }
-    ?>
-
-    <div>
-        <div class="flexx space">
-            <div class="flexx">
-                <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="/mark/icons8-стрелка-влево-30.png"></a></div>
-                <div class="road-name">
-                    <h1><?= Html::encode($this->title) ?></h1>
+        <div>
+            <div class="flexx space">
+                <div class="flexx">
+                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="/mark/icons8-стрелка-влево-30.png"></a></div>
+                    <div class="road-name">
+                        <h1><?= Html::encode($this->title) ?></h1>
+                    </div>
+                    <div>
+                        <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                    </div>
                 </div>
-                <div>
-                    <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                <div class="action-btn"></div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
+        <div class="section-link">
+            <a href="#">О маршруте</a>
+            <a href="#">Маршрут</a>
+            <a href="#">Билеты и брони</a>
+        </div>
+
+        <div class="road-link flexx">
+            <div class="type-road-link">
+                <a href="#">
+                    <img src="/mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                    <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                </a>
+            </div>
+            <div class="type-road-link">
+                <a href="#">
+                    <img src="/mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                    <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <div class="flexx" style="margin: 1em 0;">
+            <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+            <span style="margin-left: 1em;">Оптимальный маршрут</span>
+        </div>
+
+        <div class="section-link">
+            <a href="#">Ср, 23.04</a>
+        </div>
+
+        <div class="list-road">
+            <div class="dot flexx">
+                <div class="img-prev-dot">
+                    <div class="img-dot">
+                        <img src="img/dot.png">
+                    </div>
+                    <div class="number-dot">1</div>
+                </div>
+                <div class="info-dot">
+                    <div class="info-text dgc">30 мин Площади</div>
+                    <div class="name">Красная площадь</div>
+                    <div class="address dgc">Красная площадь, Москва</div>
                 </div>
             </div>
-            <div class="action-btn"></div>
         </div>
-    </div>
-    <div style="clear: both;"></div>
 
-    <div class="section-link">
-        <a href="#">О маршруте</a>
-        <a href="#">Маршрут</a>
-        <a href="#">Билеты и брони</a>
-    </div>
+        <p>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'name',
+                'level',
+                'prettyDistance',
+                'type',
+                [
+                    'attribute' => 'created_user_id',
+                    'format' => 'raw',
+                    'value' => function(Route $model) {
+                        return Html::a($model->prettyCreator, Url::to(['/user/view', 'id' => $model->created_user_id]));
+                    }
+                ],
+                'likes',
             ],
         ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'level',
-            'prettyDistance',
-            'type',
-            [
-                'attribute' => 'created_user_id',
-                'format' => 'raw',
-                'value' => function(Route $model) {
-                    return Html::a($model->prettyCreator, Url::to(['/user/view', 'id' => $model->created_user_id]));
-                }
-            ],
-            'likes',
-        ],
-    ]) ?>
+        <h3>Ключевые точки маршрута</h3>
 
-    <h3>Ключевые точки маршрута</h3>
-
-    <table class="table table-striped">
-        <tr>
-            <td><b>№</b></td>
-            <td><b>Название</b></td>
-            <td><b>Адрес</b></td>
-            <td><b>QR-код</b></td>
-            <td><b>Статус</b></td>
-        </tr>
-        <?php foreach ($points as $point): ?>
+        <table class="table table-striped">
             <tr>
-                <td><?= $point->routePoint->step; ?></td>
-                <td><?= $point->routePoint->point->name; ?></td>
-                <td><?= $point->routePoint->point->address; ?></td>
-                <td>
-                    <?php if ($point->routePoint->qr_code): ?>
-                        <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
-                            <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
-                        </a>
-                    <?php endif; ?>
-                </td>
-                <td><?= $point->statusPretty; ?></td>
+                <td><b>№</b></td>
+                <td><b>Название</b></td>
+                <td><b>Адрес</b></td>
+                <td><b>QR-код</b></td>
+                <td><b>Статус</b></td>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($points as $point): ?>
+                <tr>
+                    <td><?= $point->routePoint->step; ?></td>
+                    <td><?= $point->routePoint->point->name; ?></td>
+                    <td><?= $point->routePoint->point->address; ?></td>
+                    <td>
+                        <?php if ($point->routePoint->qr_code): ?>
+                            <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
+                                <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
+                            </a>
+                        <?php endif; ?>
+                    </td>
+                    <td><?= $point->statusPretty; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 
-    <h3>Задания на маршруте</h3>
+        <h3>Задания на маршруте</h3>
 
-    <table class="table table-striped">
-        <tr>
-            <td><b>Что надо сделать?</b></td>
-            <td><b>Тип вознаграждения</b></td>
-            <td><b>Количество</b></td>
-        </tr>
-        <?php foreach ($tasks as $task): ?>
+        <table class="table table-striped">
             <tr>
-                <td><?= $task->task->description; ?></td>
-                <td><?= $task->task->rewardTypePretty; ?></td>
-                <td><?= $task->task->reward_amount; ?></td>
+                <td><b>Что надо сделать?</b></td>
+                <td><b>Тип вознаграждения</b></td>
+                <td><b>Количество</b></td>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($tasks as $task): ?>
+                <tr>
+                    <td><?= $task->task->description; ?></td>
+                    <td><?= $task->task->rewardTypePretty; ?></td>
+                    <td><?= $task->task->reward_amount; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 
-    <h3>Выполненные задания</h3>
+        <h3>Выполненные задания</h3>
 
-    <table class="table table-striped">
-        <tr>
-            <td><b>Название задания</b></td>
-            <td><b>Получено</b></td>
-        </tr>
-        <?php foreach ($completeTasks as $task): ?>
+        <table class="table table-striped">
             <tr>
-                <td><?= $task->taskRoute->task->description; ?></td>
-                <td><?= $task->taskRewardPretty; ?></td>
+                <td><b>Название задания</b></td>
+                <td><b>Получено</b></td>
             </tr>
-        <?php endforeach; ?>
-    </table>
+            <?php foreach ($completeTasks as $task): ?>
+                <tr>
+                    <td><?= $task->taskRoute->task->description; ?></td>
+                    <td><?= $task->taskRewardPretty; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 
 
 
-    <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
-        <?= Html::button('Показать результаты прохождения маршрута', [
-            'class' => 'btn btn-primary',
-            'data-bs-toggle' => 'modal',
-            'data-bs-target' => '#exampleModal'
-        ]);
+        <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
+            <?= Html::button('Показать результаты прохождения маршрута', [
+                'class' => 'btn btn-primary',
+                'data-bs-toggle' => 'modal',
+                'data-bs-target' => '#exampleModal'
+            ]);
 
-        // Модальное окно
-        Modal::begin([
-            'title' => 'Результаты прохождения маршрута',
-            'id' => 'exampleModal',
-            'size' => Modal::SIZE_LARGE,
-        ]);
-        echo DetailView::widget([
-            'model' => $result,
-            'attributes' => [
-                'allTasks',
-                'completedTasks',
-                'allPoints',
-                'completedPoints',
-                'rewards',
-            ]
-        ]);
-        Modal::end();
-        ?>
-    <?php endif; ?>
+            // Модальное окно
+            Modal::begin([
+                'title' => 'Результаты прохождения маршрута',
+                'id' => 'exampleModal',
+                'size' => Modal::SIZE_LARGE,
+            ]);
+            echo DetailView::widget([
+                'model' => $result,
+                'attributes' => [
+                    'allTasks',
+                    'completedTasks',
+                    'allPoints',
+                    'completedPoints',
+                    'rewards',
+                ]
+            ]);
+            Modal::end();
+            ?>
+        <?php endif; ?>
 
+    </div>
+    <div class="map"></div>
 </div>
+
 
 
 <?php
