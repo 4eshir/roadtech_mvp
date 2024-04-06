@@ -25,7 +25,7 @@ $this->registerJs($script, View::POS_READY);
 
     <?php
     // Получаем HTML-код страницы
-    $html = file_get_contents('http://roadtech/index.php?r=route%2Fquestionnaire');
+    $html = file_get_contents(Url::home(true).Url::to(['/route/questionnaire']));
 
     if (preg_match('/<main\b[^>]*>(.*?)<\/main>/s', $html, $matches)) {
         $content = $matches[1];
