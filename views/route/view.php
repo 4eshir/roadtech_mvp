@@ -40,9 +40,50 @@ $(document).ready(function(){
     $('#openModalButton2').click(function() {
         $('#modal2').modal('show');
     });
+});
+
+$(document).ready(function() {
+    $('#parent-element').hover(
+        function() {
+            $('#invisible-block').fadeIn();
+        },
+        function() {
+            $('#invisible-block').fadeOut();
+        }
+    );
 });";
 $this->registerJs($script, View::POS_READY);
 
+$css = '
+#w0, #w1 {
+   width: 19em;
+}
+.btn-add, .btn-add:hover {
+    background: #FFCF08;
+    color: black;
+    border-color: none;
+}
+#route-container .add-point-form {
+    margin-left: 20%;
+    margin-top: 60%;
+}
+
+#parent-element {
+    position: relative;
+}
+
+#invisible-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); /* Прозрачный цвет фона */
+    display: none; /* Начально скрыт */
+    margin: 0 2em;
+}
+';
+$this->registerCss($css);
 ?>
 
 <?php
@@ -516,7 +557,7 @@ if ($end) {
             <div class="list-road">
                 <?php $number = 1; ?>
                 <?php foreach ($points as $point): ?>
-                    <div class="dot flexx space">
+                    <div class="dot flexx space" id="parent-element">
                         <div class="flexx">
                             <div>
                                 <a href="#"><img src="./img/setting-dot.png"></a>
@@ -533,7 +574,13 @@ if ($end) {
                                 <div class="address dgc"><?= $point->routePoint->point->address; ?></div>
                             </div>
                         </div>
-
+                        <div class="img-prev-dot-2" id="invisible-block">
+                            <?php if ($point->routePoint->qr_code): ?>
+                                <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
+                                    <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
+                                </a>
+                            <?php endif; ?>
+                        </div>
                         <div class="dot-function">
                             <img style="height: 40px;" src="./img/dot-function.png">
                         </div>
@@ -560,27 +607,35 @@ if ($end) {
 
 
         <div class="map">
-            <div class="add-point-form">
-                <?php
-                $points2 = [];
-                foreach (Point::find()->all() as $point)
-                    $points2[$point->id] = $point->name;
-
-                $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
-
-                <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
-                <?= $form->field($addPointForm, 'method')->dropDownList([
-                    1 => 'Добавить в конец маршрута',
-                    2 => 'Добавить следующей точкой маршрута',
-                    3 => 'Добавить в оптимальное место маршрута',
-                ]) ?>
-                <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+            <div class="add-point-form flexx">
+                <div>
+                    <img src="/mark/location.png" class="location"/>
                 </div>
+                <div>
+                    <?php
+                    $points2 = [];
+                    foreach (Point::find()->all() as $point)
+                        $points2[$point->id] = $point->name;
 
-                <?php ActiveForm::end(); ?>
+                    $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+                    <?= $form->field($addPointForm, 'pointId')
+                        ->hiddenInput(['value' => 10/*Здесь ID Point, который добавляем*/])
+                        ->label(false)
+                    ?>
+                    <?= $form->field($addPointForm, 'method', ['options' => ['class' => 'field-add']])->dropDownList([
+                        1 => 'Добавить в конец маршрута',
+                        2 => 'Добавить следующей точкой маршрута',
+                        3 => 'Добавить в оптимальное место маршрута',
+                    ])->label(false) ?>
+                    <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary btn-add']) ?>
+                    </div>
+
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
 
             <!--<img src="./img/map.png" style="border-radius: 20px;">-->
