@@ -431,10 +431,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+                <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+                <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
             </div>
 
             <div class="section-link">
@@ -447,12 +447,7 @@ if ($end) {
         </div>
         <div style="clear: both;"></div>
 
-        <div class="section-link">
-            <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
-            <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
-        </div>
+
         <div class="map"></div>
     </div>
 </div>
@@ -476,10 +471,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+                <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+                <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
             </div>
 
             <div class="road-link flexx">
@@ -564,11 +559,6 @@ if ($end) {
                 foreach (Point::find()->all() as $point)
                     $points2[$point->id] = $point->name;
 
-        /*<div class="section-link">
-            <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
-            <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>*/
                 $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
 
                 <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
@@ -586,7 +576,6 @@ if ($end) {
                 <?php ActiveForm::end(); ?>
             </div>
             <!--<img src="./img/map.png" style="border-radius: 20px;">-->
->>>>>>> f737ec135f1014420fd2090b7a7eddd414f3e1a2
         </div>
 </div>
 
