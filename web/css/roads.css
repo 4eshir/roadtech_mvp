@@ -375,3 +375,7 @@ select {
 #modal2 .modal-header {
     display:none;
 }
+
+.add-point-form {
+    width: 30%
+}

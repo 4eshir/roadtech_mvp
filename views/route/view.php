@@ -325,7 +325,7 @@ if ($end) {
             </div>
         </div>
         <div class="map">
-            <div>
+            <div class="add-point-form">
                 <?php
                 $points2 = [];
                 foreach (Point::find()->all() as $point)
@@ -333,7 +333,7 @@ if ($end) {
 
                 $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
 
-                <?= $form->field($addPointForm, 'pointId')->radioList($points2) ?>
+                <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => /*Здесь ID Point, который добавляем*/]) ?>
                 <?= $form->field($addPointForm, 'method')->dropDownList([
                     1 => 'Добавить в конец маршрута',
                     2 => 'Добавить следующей точкой маршрута',
