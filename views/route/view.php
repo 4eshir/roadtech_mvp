@@ -183,7 +183,7 @@ if ($end) {
             <div class="comments">
                 <div class="title-dots">Отзывы и оценки</div>
                 <div class="comment-list">
-
+                    <img src="./img/comments.png">
                 </div>
             </div>
         </div>
