@@ -445,7 +445,6 @@ if ($end) {
                 <img src="./img/tiket.png">
             </div>
         </div>
-<<<<<<< HEAD
         <div style="clear: both;"></div>
 
         <div class="section-link">
@@ -454,9 +453,7 @@ if ($end) {
             <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
             <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
         </div>
-=======
         <div class="map"></div>
->>>>>>> f737ec135f1014420fd2090b7a7eddd414f3e1a2
     </div>
 </div>
 <div id="journey-container" class="block" style="display: none;">
