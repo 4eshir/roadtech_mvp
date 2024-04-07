@@ -706,21 +706,6 @@ if ($end) {
 
 
 <script>
-    /*function buttClear(elId) {
-        console.log(elId);
-        if (!elId.style) {
-            elId.style = ""; // Создаем объект style, если его нет
-        }
-
-        elId.style.color = '#747474';
-        elId.style.textDecoration = 'none';
-    }
-
-    function buttOk(elId) {
-        elId.style.color = 'black';
-        elId.style.textDecoration = 'underline #FFCF08';
-        elId.style.textDecorationThickness = '3px';
-    }*/
 
     function toggleBlock(blockId, bId) {
         var blocks = document.getElementsByClassName('block');
