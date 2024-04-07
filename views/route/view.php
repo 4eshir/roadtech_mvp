@@ -36,6 +36,7 @@ $script = "$(document).ready(function(){
     });
 });";
 $this->registerJs($script, View::POS_READY);
+
 ?>
 
 <?php
@@ -74,16 +75,19 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')">Описание</button>
-                <button onclick="toggleBlock('route-container')">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')">В путь</button>
+                <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
             </div>
 
-            <div class="flexx">
+            <div class="flexx social-in-card">
                 <div class="">
-                    <div class="btn-rout btn-rout-button">
-                        <button id="openModalButton" class="btn-rout-button">Задание на маршруте</button>
+                    <div class="tasks">
+                        <div class="btn-rout btn-rout-button">
+                            <button id="openModalButton" class="btn-rout-button">Задание на маршруте</button>
+                        </div>
+                        <span><?= $model->tasksCount(); ?></span>
                     </div>
 
                     <?php
@@ -95,16 +99,93 @@ if ($end) {
                     ]);
 
                     echo '<div class="modalContent">'
-                        . ''
-                        . '</div>';
+                        . '<table class="table table-striped">
+                            <tr>
+                                <td><b>Что надо сделать?</b></td>
+                                <td><b>Тип вознаграждения</b></td>
+                                <td><b>Количество</b></td>
+                            </tr>';
+                            foreach ($tasks as $task)
+                                {
+                                    echo '<tr>
+                                    <td>'.$task->task->description.'</td>
+                                    <td>'.$task->task->rewardTypePretty.'</td>
+                                    <td>'.$task->task->reward_amount.'</td>
+                                </tr>';
+                                }
+                            echo '</table>'.'</div>';
 
                     Modal::end();
                     ?>
 
+                </div>
+                <div class="like">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                        <path class="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
 
+                <div class="rating">7.4</div>
+                <div class="rating-text">На основе <br>40 оценок</div>
+            </div>
+            
+            <div class="discription-info">
+                <img src="./img/discription-info.png">
+            </div>
+
+            <div class="dots">
+                <div class="title-dots">Что вы увидите</div>
+                <div class="dots-list row">
+                    <?php if (count($points) > 0): ?>
+                        <?php foreach ($points as $point): ?>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="card-rout dot-road">
+                                    <div class="social flexx space">
+                                        <div class="rating">7.4</div>
+                                        <div class="like">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                                                <path class="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="picture-dot"></div>
+                                    <div class="dot-info">
+                                        <div class="dot-type lgc"><?= $point->routePoint->point->getPrettyType(); ?></div>
+                                        <div class="dot-name"><?= $point->routePoint->point->name; ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <?php foreach ($pointsPure as $point): ?>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="card-rout dot-road">
+                                    <div class="social flexx space">
+                                        <div class="rating">7.4</div>
+                                        <div class="like">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                                                <path class="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="picture-dot"></div>
+                                    <div class="dot-info">
+                                        <div class="dot-type lgc"><?= $point->routePoint->point->getPrettyType(); ?></div>
+                                        <div class="dot-name"><?= $point->routePoint->point->name; ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
 
+            <div class="comments">
+                <div class="title-dots">Отзывы и оценки</div>
+                <div class="comment-list">
+
+                </div>
+            </div>
         </div>
         <div class="map2">
             <div>
@@ -164,10 +245,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')">Описание</button>
-                <button onclick="toggleBlock('route-container')">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')">В путь</button>
+                <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
             </div>
 
             <div class="road-link flexx">
@@ -243,10 +324,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')">Описание</button>
-            <button onclick="toggleBlock('route-container')">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')">В путь</button>
+            <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
+            <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
         </div>
     </div>
 </div>
@@ -269,10 +350,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')">Описание</button>
-            <button onclick="toggleBlock('route-container')">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')">В путь</button>
+            <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
+            <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
         </div>
     </div>
 </div>
@@ -526,15 +607,53 @@ if ($end) {
 
 
 <script>
+    function buttClear(elId) {
+        elId.style.color = '#747474';
+        elId.style.textDecoration = 'none';
+    }
+
+    function buttOk(elId) {
+        elId.style.color = 'black';
+        elId.style.textDecoration = 'underline #FFCF08';
+        elId.style.textDecorationThickness = '3px';
+    }
+
     function toggleBlock(blockId) {
         var blocks = document.getElementsByClassName('block');
         for (var i = 0; i < blocks.length; i++) {
             blocks[i].style.display = 'none';
         }
 
+
         var block = document.getElementById(blockId);
         if (block) {
             block.style.display = 'block';
+        }
+
+        q1 = document.getElementById(q1);
+        q2 = document.getElementById(q2);
+        q3 = document.getElementById(q3);
+        q4 = document.getElementById(q4);
+        if (blockId == 'description-container') {
+            buttClear(q2);
+            buttClear(q3);
+            buttClear(q4);
+            buttOk(q1);
+        } else if (blockId == 'route-container') {
+            buttClear(q1);
+            buttClear(q3);
+            buttClear(q4);
+            buttOk(q2);
+        } else if (blockId == 'tickets-container') {
+            buttClear(q1);
+            buttClear(q2);
+            buttClear(q4);
+            buttOk(q3);
+        } else{
+            buttClear(q1);
+            buttClear(q2);
+            buttClear(q3);
+            buttOk(q4);
         }
     }
 </script>

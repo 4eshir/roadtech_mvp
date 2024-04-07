@@ -266,3 +266,77 @@ select {
     background: none!important;
     border: none!important;
 }
+
+.btn-rout-button {
+    padding: 0.1em 1.5em;
+}
+
+.tasks {
+    position: relative;
+    display: inline-block; /* Рассматривать элемент как блочный с возможностью наложения */
+}
+
+.tasks span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red; /* Цвет фона для демонстрации */
+    color: white; /* Цвет текста */
+    padding: 3px 10px; /* Отступы внутри элемента */
+    border-radius: 50%; /* Закругление углов */
+    transform: translate(50%, -50%); /* Позиционирование элемента по правому верхнему углу внутри блока с учетом его размера */
+}
+
+.social-in-card .like{
+    margin-left: 1em;
+}
+
+.social-in-card .rating{
+    margin-left: 0;
+    padding: 0.5em 0.7em;
+    align-items: center;
+    display: flex;
+}
+
+.rating-text {
+    margin-left: 1em;
+}
+
+.discription-info img {
+    width: 95%;
+    margin: 2em 0 2em -0.3em;
+}
+
+.dot-road {
+    background: url("../img/dot1.jpg") no-repeat;
+    background-size: cover;
+    height: 15em;
+    position: relative;
+}
+
+.dot-info {
+    position: absolute;
+    bottom: 0;
+    margin: 1em;
+}
+
+.dot-road .social {
+    margin: 1em 0;
+}
+
+.dot-type {
+    font-size: 0.8em;
+}
+
+.dot-name {
+    color: white;
+}
+
+.title-dots {
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.comments {
+    margin: 2em 0;
+}
