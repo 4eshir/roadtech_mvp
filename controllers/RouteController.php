@@ -2,9 +2,13 @@
 
 namespace app\controllers;
 
+use app\components\DistanceStub;
+use app\models\components\ShortestRouteComponent;
+use app\models\components\ShortPointRecord;
 use app\models\forms\AddPointForm;
 use app\models\forms\QuestionnaireForm;
 use app\models\forms\RouteForm;
+use app\models\Point;
 use app\models\Route;
 use app\models\RoutePoint;
 use app\models\RoutePointUser;
@@ -12,6 +16,7 @@ use app\models\search\SearchRoute;
 use app\models\User;
 use http\Exception\RuntimeException;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -180,6 +185,44 @@ class RouteController extends Controller
 
     private function addPointOptimal($routeId, $pointId)
     {
+        $minDist = 10000000000000000;
+        $minPoint = null;
+        $targetPoint = Point::find()->where(['id' => $pointId])->one();
+
+        $userPoints = RoutePointUser::find()
+            ->joinWith('routePoint routePoint')
+            ->where(['routePoint.route_id' => $this->id])
+            ->andWhere(['user_id' => User::getCurrentUser()->id])
+            ->andWhere(['status' => 1])
+            ->orderBy(['routePoint.step' => SORT_ASC])->all();
+
+        $points = RoutePoint::find()
+            ->where(['route_id' => $routeId])
+            ->andWhere(['NOT IN', 'id', ArrayHelper::getColumn($userPoints, 'route_point_id')])->all();
+        foreach ($points as $point) {
+            if (DistanceStub::getDistanceBetweenPoints($point->point, $targetPoint) < $minDist) {
+                $minDist = DistanceStub::getDistanceBetweenPoints($point->point, $targetPoint);
+                $minPoint = $point;
+            }
+        }
+
+        $changePoints = RoutePoint::find()->where(['>', 'step', $minPoint->step])->all();
+        foreach ($changePoints as $changePoint) {
+            $changePoint->step += 1;
+            $changePoint->save();
+        }
+
+        $newPoint = new RoutePoint();
+        $newPoint->route_id = $routeId;
+        $newPoint->point_id = $pointId;
+        $newPoint->step = $minPoint->step + 1;
+        $newPoint->save();
+
+        $newPointUser = new RoutePointUser();
+        $newPointUser->user_id = User::getCurrentUser()->id;
+        $newPointUser->route_point_id = $newPoint->id;
+        $newPointUser->status = 1;
+        $newPointUser->save();
 
     }
 
