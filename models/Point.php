@@ -74,7 +74,7 @@ class Point extends \yii\db\ActiveRecord
             case 40:
                 return 'Интересные точки';
             default:
-                throw new RuntimeException('Invalid type');
+                return 'DEFAULT';
         }
     }
 }
