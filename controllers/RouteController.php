@@ -13,7 +13,10 @@ use app\models\Route;
 use app\models\RoutePoint;
 use app\models\RoutePointUser;
 use app\models\search\SearchRoute;
+use app\models\TaskRoute;
+use app\models\TaskRouteUser;
 use app\models\User;
+use app\models\UserRoute;
 use http\Exception\RuntimeException;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -224,6 +227,63 @@ class RouteController extends Controller
         $newPointUser->status = 1;
         $newPointUser->save();
 
+    }
+
+    public function actionStartRoute($routeId)
+    {
+        $routeUser = new UserRoute();
+        $routeUser->route_id = $routeId;
+        $routeUser->user_id = User::getCurrentUser()->id;
+        $routeUser->status = 2;
+        $routeUser->save();
+        Yii::$app->session->setFlash('success', 'Вы начали прохождение маршрута');
+
+        $points = RoutePoint::find()->where(['route_id' => $routeId])->all();
+        foreach ($points as $point) {
+            $pointUser = new RoutePointUser();
+            $pointUser->route_point_id = $point->id;
+            $pointUser->user_id = User::getCurrentUser()->id;
+            $pointUser->status = 1;
+            $pointUser->save();
+        }
+
+        $tasks = TaskRoute::find()->where(['route_id' => $routeId])->all();
+        foreach ($tasks as $task) {
+            $taskRouteUser = new TaskRouteUser();
+            $taskRouteUser->task_route_id = $task->id;
+            $taskRouteUser->user_id = User::getCurrentUser()->id;
+            $taskRouteUser->status = 1;
+            $taskRouteUser->save();
+        }
+
+        return $this->redirect(['view', 'id' => $routeId]);
+    }
+
+    public function actionEndRoute($routeId)
+    {
+        $routeUser = UserRoute::find()->where(['route_id' => $routeId])->andWhere(['user_id' => User::getCurrentUser()->id])->one();
+        $routeUser->status = 3;
+        $routeUser->save();
+
+        $points = RoutePointUser::find()->joinWith('routePoint routePoint')->where(['user_id' => $routeUser->user_id])->andWhere(['routePoint.route_id' => $routeUser->route_id])->all();
+        foreach ($points as $point) {
+            if ($point->status == 1) {
+                $point->status = 3;
+                $point->save();
+            }
+        }
+
+        $tasks = TaskRouteUser::find()->joinWith('taskRoute taskRoute')->where(['taskRoute.route_id' => $routeUser->route_id])->andWhere(['user_id' => $routeUser->user_id])->all();
+        foreach ($tasks as $task) {
+            if ($task->status == 1) {
+                $task->status = 3;
+                $task->save();
+            }
+        }
+
+        Yii::$app->session->setFlash('warning', 'Маршрут завершен пользователем');
+
+        return $this->redirect(['view', 'id' => $routeId]);
     }
 
     public function actionQuestionnaire()

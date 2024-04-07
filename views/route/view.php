@@ -88,43 +88,45 @@ if ($end) {
             </div>
 
             <div class="flexx social-in-card">
-                <div class="">
-                    <div class="tasks">
-                        <div class="btn-rout btn-rout-button">
-                            <button id="openModalButton" class="btn-rout-button">Задание на маршруте</button>
+                <?php if ($model->tasksCount() > 0): ?>
+                    <div class="">
+                        <div class="tasks">
+                            <div class="btn-rout btn-rout-button">
+                                <button id="openModalButton" class="btn-rout-button">Задание на маршруте</button>
+                            </div>
+                            <span><?= $model->tasksCount(); ?></span>
                         </div>
-                        <span><?= $model->tasksCount(); ?></span>
-                    </div>
 
-                    <?php
+                        <?php
+                        Modal::begin([
+                            'title' => '<h3>Задание от Яндекс</h3>',
+                            'id' => 'modal',
+                            'size' => 'modal-lg',
+                        ]);
 
-                    Modal::begin([
-                        'title' => '<h3>Задание от Яндекс</h3>',
-                        'id' => 'modal',
-                        'size' => 'modal-lg',
-                    ]);
-
-                    echo '<div class="modalContent">'
-                        . '<table class="table table-striped">
+                        echo '<div class="modalContent">'
+                            . '<table class="table table-striped">
                             <tr>
                                 <td><b>Что надо сделать?</b></td>
                                 <td><b>Тип вознаграждения</b></td>
                                 <td><b>Количество</b></td>
                             </tr>';
-                            foreach ($tasks as $task)
-                                {
-                                    echo '<tr>
+                        foreach ($tasks as $task)
+                        {
+                            echo '<tr>
                                     <td>'.$task->task->description.'</td>
                                     <td>'.$task->task->rewardTypePretty.'</td>
                                     <td>'.$task->task->reward_amount.'</td>
                                 </tr>';
-                                }
-                            echo '</table>'.'</div>';
+                        }
+                        echo '</table>'.'</div>';
 
-                    Modal::end();
-                    ?>
+                        Modal::end();
 
-                </div>
+                        ?>
+
+                    </div>
+                <?php endif; ?>
                 <div class="like">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                         <path class="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -403,11 +405,21 @@ if ($end) {
         </div>
     </div>
 
-    <div class="btn-container-route">
-        <div class="btn-rout btn-rout-button">
-            <button onclick="toggleBlock('journey-container')" class="q4">В путь</button>
+    <?php
+
+    $routeIsEnded = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 3])->one();
+
+    ?>
+
+    <?php if (!$routeIsEnded): ?>
+        <div class="btn-container-route">
+            <div class="btn-rout btn-rout-button">
+                <?= Html::a('В путь',
+                    Url::to(['start-route', 'routeId' => $model->id]),
+                    ['class' => 'btn-rout-link', 'onclick' => "toggleBlock('journey-container')"]) ?>
+            </div>
         </div>
-    </div>
+    <?php endif; ?>
 
 
 </div>
@@ -523,9 +535,12 @@ if ($end) {
                             </div>
                             <div class="img-prev-dot">
                                 <div class="img-dot">
-                                    <img src="./img/dot.png">
+                                    <?php
+                                    $style = $point->status == 2 ? 'style="border: 6px solid green; border-radius: 30px;"' : '';
+                                    ?>
+                                    <img src="./img/dot.png" <?= $style ?>>
                                 </div>
-                                <div class="number-dot"><?= $number; ?></div>
+                                <div class="number-dot" style="z-index: 10; background-color: white"><?= $number; ?></div>
                             </div>
                             <div class="info-dot">
                                 <div class="info-text dgc">30 мин • <?= $point->routePoint->point->getPrettyType(); ?> • Билет от 100 рублей</div>
@@ -552,39 +567,72 @@ if ($end) {
 
             </div>
             <div class="btn-container-route">
-                <div class="btn-rout btn-rout-button">
-                    <button onclick="toggleBlock('journey-container')" class="q4">Завершить маршрут</button>
+                    <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
+                        <?= Html::button('Показать результаты прохождения маршрута', [
+                            'class' => 'btn btn-primary',
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#exampleModal'
+                        ]);
+
+                        // Модальное окно
+                        Modal::begin([
+                            'title' => 'Поздравляем, вы завершили маршрут!',
+                            'id' => 'exampleModal',
+                            'size' => Modal::SIZE_LARGE,
+                        ]);
+                        $data = '<div style="text-align: center"><p>Ваши достижения:</p>';
+                        $data .= '<span>Кол-во пройденных шагов: <b>8544</b></span><br>';
+                        $data .= '<span>Расстояние: <b>6.4 км из '.round($model->distance / 1000, 1).' км</b></span><br>';
+                        $data .= '<span>Посещенные точки на маршруте: <b>'.$result->completedPoints.' из '.$result->allPoints.'</b></span><br>';
+                        $data .= '<span>Выполненные задания на маршруте: <b>'.$result->completedTasks.' из '.$result->allTasks.'</b></span><br></div>';
+                        $data .= '<br><label for="myTextarea">Укажите причину по которой пропущена точка(-и) на маршруте:</label>
+                                    <br>
+                                    <textarea id="myTextarea" rows="4" cols="50" style="width: 100%"></textarea><br></div>
+                                    <div class="btn-rout btn-rout-button">
+            <a class="btn-rout-link" href="#" ">Отправить</a></div>';
+
+                        echo $data;
+                        Modal::end();
+                        ?>
+                    <?php else: ?>
+                        <div class="btn-rout btn-rout-button">
+                            <?= Html::a('Завершить маршрут',
+                                Url::to(['end-route', 'routeId' => $model->id]),
+                                ['class' => 'btn-rout-link', 'onclick' => "toggleBlock('journey-container')"]) ?>
+                        </div>
+                    <?php endif; ?>
+            </div>
+            <div class="map">
+                <div class="add-point-form">
+                    <?php
+                    $points2 = [];
+                    foreach (Point::find()->all() as $point)
+                        $points2[$point->id] = $point->name;
+
+                    $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+                    <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
+                    <?= $form->field($addPointForm, 'method')->dropDownList([
+                        1 => 'Добавить в конец маршрута',
+                        2 => 'Добавить следующей точкой маршрута',
+                        3 => 'Добавить в оптимальное место маршрута',
+                    ]) ?>
+                    <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+                    </div>
+
+                    <?php ActiveForm::end(); ?>
                 </div>
+
+                <!--<img src="./img/map.png" style="border-radius: 20px;">-->
             </div>
         </div>
 
 
-        <div class="map">
-            <div class="add-point-form">
-                <?php
-                $points2 = [];
-                foreach (Point::find()->all() as $point)
-                    $points2[$point->id] = $point->name;
 
-                $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
-
-                <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
-                <?= $form->field($addPointForm, 'method')->dropDownList([
-                    1 => 'Добавить в конец маршрута',
-                    2 => 'Добавить следующей точкой маршрута',
-                    3 => 'Добавить в оптимальное место маршрута',
-                ]) ?>
-                <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
-                </div>
-
-                <?php ActiveForm::end(); ?>
-            </div>
-
-            <!--<img src="./img/map.png" style="border-radius: 20px;">-->
-        </div>
+    </div>
 </div>
 
 <div style="display: none;" class="flexx">
@@ -803,32 +851,7 @@ if ($end) {
 
 
 
-        <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
-            <?= Html::button('Показать результаты прохождения маршрута', [
-                'class' => 'btn btn-primary',
-                'data-bs-toggle' => 'modal',
-                'data-bs-target' => '#exampleModal'
-            ]);
 
-            // Модальное окно
-            Modal::begin([
-                'title' => 'Результаты прохождения маршрута',
-                'id' => 'exampleModal',
-                'size' => Modal::SIZE_LARGE,
-            ]);
-            echo DetailView::widget([
-                'model' => $result,
-                'attributes' => [
-                    'allTasks',
-                    'completedTasks',
-                    'allPoints',
-                    'completedPoints',
-                    'rewards',
-                ]
-            ]);
-            Modal::end();
-            ?>
-        <?php endif; ?>
 
     </div>
     <div class="map"></div>
