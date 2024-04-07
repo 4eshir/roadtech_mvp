@@ -335,7 +335,7 @@ if ($end) {
         <div class="map">
             <div class="add-point-form flexx">
                 <div>
-                    <img src="/mark/location.png" class="location"/>
+                    <img src="./mark/location.png" class="location"/>
                 </div>
                 <div>
                     <?php
@@ -560,27 +560,35 @@ if ($end) {
 
 
         <div class="map">
-            <div class="add-point-form">
-                <?php
-                $points2 = [];
-                foreach (Point::find()->all() as $point)
-                    $points2[$point->id] = $point->name;
-
-                $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
-
-                <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
-                <?= $form->field($addPointForm, 'method')->dropDownList([
-                    1 => 'Добавить в конец маршрута',
-                    2 => 'Добавить следующей точкой маршрута',
-                    3 => 'Добавить в оптимальное место маршрута',
-                ]) ?>
-                <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+            <div class="add-point-form flexx">
+                <div>
+                    <img src="./mark/location.png" class="location"/>
                 </div>
+                <div>
+                    <?php
+                    $points2 = [];
+                    foreach (Point::find()->all() as $point)
+                        $points2[$point->id] = $point->name;
 
-                <?php ActiveForm::end(); ?>
+                    $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+                    <?= $form->field($addPointForm, 'pointId')
+                        ->hiddenInput(['value' => 10/*Здесь ID Point, который добавляем*/])
+                        ->label(false)
+                    ?>
+                    <?= $form->field($addPointForm, 'method', ['options' => ['class' => 'field-add']])->dropDownList([
+                        1 => 'Добавить в конец маршрута',
+                        2 => 'Добавить следующей точкой маршрута',
+                        3 => 'Добавить в оптимальное место маршрута',
+                    ])->label(false) ?>
+                    <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+                    <div class="form-group">
+                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary btn-add']) ?>
+                    </div>
+
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
 
             <!--<img src="./img/map.png" style="border-radius: 20px;">-->
