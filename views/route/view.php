@@ -573,11 +573,12 @@ if ($end) {
                             </div>
                         </div>
                         <div class="img-prev-dot-2" id="invisible-block">
-                            <?php if ($point->routePoint->qr_code): ?>
+                            <?php /*if ($point->routePoint->qr_code): ?>
                                 <a href="<?= Url::to(['/qr/check-point', 'rpuId' => $point->id]) ?>">
                                     <img width="100" height="100" src="<?= $point->routePoint->qr_code; ?>"/>
                                 </a>
-                            <?php endif; ?>
+                            <?php endif;*/ ?>
+                            <img width="100" height="100" src="./upload/qr/1.png"/>
                         </div>
                         <div class="dot-function">
                             <img style="height: 40px;" src="./img/dot-function.png">
