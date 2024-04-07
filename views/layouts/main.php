@@ -35,9 +35,32 @@ $this->registerCssFile('./css/footer.css');
 <header id="header">
     <?php
     NavBar::begin([
-        'brandLabel' => 'RUSSPASS',
+        'brandLabel' => Html::img('@web/img/header-log.png', ['alt'=>Yii::$app->name, 'style' => 'max-height: 30px;']),
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top navbar-expand-md fixed-top',
+        ],
+    ]);
+    $balance = User::getCurrentUser()->russpass_balance;
+    $menuItems = [
+        '<li class="nav-item" style="align-items: center; display: flex;"><div>Бонусы '.$balance.'</div></li>',
+        ['label' => 'God\'s panel', 'url' => ['/god/index']],
+        ['label' => 'Маршруты', 'url' => ['/route/index']],
+        ['label' => 'Пользователь', 'url' => ['/user/index']],
+        ['label' => 'Социальная часть', 'url' => ['/social/index']],
+        ['label' => 'Swagger', 'url' => ['/site/swagger']],
+    ];
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItems,
+    ]);
+    NavBar::end();
+    ?>
+    <?php /*
+    NavBar::begin([
+        'brandLabel' => Html::img('./img/header-log.png', ['alt'=>Yii::$app->name]),
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => ['class' => 'navbar-expand-md fixed-top']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
@@ -50,7 +73,7 @@ $this->registerCssFile('./css/footer.css');
             ['label' => 'Swagger', 'url' => ['/site/swagger']],
         ]
     ]);
-    NavBar::end();
+    NavBar::end();*/
     ?>
 </header>
 
