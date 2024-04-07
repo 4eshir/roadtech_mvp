@@ -444,7 +444,7 @@ if ($end) {
 
     <div class="btn-container-route">
         <div class="btn-rout btn-rout-button">
-            <button onclick="toggleBlock('journey-container')" class="q4">В путь</button>
+            <?= Html::a('В путь', Url::to(['start-route', 'routeId' => $model->id])) ?>
         </div>
     </div>
 
@@ -598,7 +598,35 @@ if ($end) {
             </div>
             <div class="btn-container-route">
                 <div class="btn-rout btn-rout-button">
-                    <button onclick="toggleBlock('journey-container')" class="q4">Завершить маршрут</button>
+                    <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
+                        <?= Html::button('Показать результаты прохождения маршрута', [
+                            'class' => 'btn btn-primary',
+                            'data-bs-toggle' => 'modal',
+                            'data-bs-target' => '#exampleModal'
+                        ]);
+
+                        // Модальное окно
+                        Modal::begin([
+                            'title' => 'Результаты прохождения маршрута',
+                            'id' => 'exampleModal',
+                            'size' => Modal::SIZE_LARGE,
+                        ]);
+                        echo DetailView::widget([
+                            'model' => $result,
+                            'attributes' => [
+                                'allTasks',
+                                'completedTasks',
+                                'allPoints',
+                                'completedPoints',
+                                'rewards',
+                            ]
+                        ]);
+                        Modal::end();
+                        ?>
+                    <?php else: ?>
+                        <?= Html::a('Завершить маршрут', Url::to(['end-route', 'routeId' => $model->id])); ?>
+                    <?php endif; ?>
+
                 </div>
             </div>
         </div>
@@ -856,32 +884,7 @@ if ($end) {
 
 
 
-        <?php if ($pickText == 'Вы успешно завершили данный маршрут'): ?>
-            <?= Html::button('Показать результаты прохождения маршрута', [
-                'class' => 'btn btn-primary',
-                'data-bs-toggle' => 'modal',
-                'data-bs-target' => '#exampleModal'
-            ]);
 
-            // Модальное окно
-            Modal::begin([
-                'title' => 'Результаты прохождения маршрута',
-                'id' => 'exampleModal',
-                'size' => Modal::SIZE_LARGE,
-            ]);
-            echo DetailView::widget([
-                'model' => $result,
-                'attributes' => [
-                    'allTasks',
-                    'completedTasks',
-                    'allPoints',
-                    'completedPoints',
-                    'rewards',
-                ]
-            ]);
-            Modal::end();
-            ?>
-        <?php endif; ?>
 
     </div>
     <div class="map"></div>

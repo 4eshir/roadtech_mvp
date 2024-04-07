@@ -2,7 +2,9 @@
 
 namespace app\models\forms;
 
-class RouteResultForm
+use yii\base\Model;
+
+class RouteResultForm extends Model
 {
     public $allTasks;
     public $completedTasks;
@@ -19,5 +21,16 @@ class RouteResultForm
         $this->allPoints = count($allPoints);
         $this->completedPoints = count($completedPoints);
         $this->rewards = $rewards;
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'allTasks' => 'Всего заданий',
+            'completedTasks' => 'Выполнено заданий',
+            'allPoints' => 'Всего точек интереса',
+            'completedPoints' => 'Пройдено точек интереса',
+            'rewards' => 'Награды',
+        ];
     }
 }
