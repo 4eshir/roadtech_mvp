@@ -555,7 +555,7 @@ if ($end) {
             <div class="list-road">
                 <?php $number = 1; ?>
                 <?php foreach ($points as $point): ?>
-                    <div class="dot flexx space" id="parent-element">
+                    <div class="dot flexx space" id="parent-element" style="border: <?= $point->status == 2 ? 'solid 3px #007119' : ''?>; border-radius: 10px;">
                         <div class="flexx">
                             <div>
                                 <a href="#"><img src="./img/setting-dot.png"></a>

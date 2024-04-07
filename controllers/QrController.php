@@ -67,7 +67,6 @@ class QrController extends Controller
     public function actionCheckPoint($rpuId)
     {
         $routePoint = RoutePointUser::find()->where(['id' => $rpuId])->one();
-        var_dump($routePoint);
         $routePoint->status = 2;
         $routePoint->save();
 
