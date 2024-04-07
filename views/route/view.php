@@ -258,9 +258,9 @@ if ($end) {
             </div>
 
             <div class="road-link flexx">
-                <div class="type-road-link">
+                <div class="type-road-link" style="border: solid 3px #FFCF08;">
                     <a href="#">
-                        <img src="./mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                        <img src="./mark/icons8-ходьба-50.png" class="mark-card">55 мин.
                         <span style="lgc">
                         <?php echo $model->getPrettyDistance(); ?>
                     </span>
@@ -268,7 +268,15 @@ if ($end) {
                 </div>
                 <div class="type-road-link">
                     <a href="#">
-                        <img src="./mark/icons8-автобус-50.png" class="mark-card">30 мин.
+                        <img src="./mark/icons8-автобус-50.png" class="mark-card">40 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+                <div class="type-road-link">
+                    <a href="#">
+                        <img src="./mark/icons8-велосипед-30.png" class="mark-card">30 мин.
                         <span style="lgc">
                         <?php echo $model->getPrettyDistance(); ?>
                     </span>
@@ -325,7 +333,6 @@ if ($end) {
             </div>
         </div>
         <div class="map">
-
             <div class="add-point-form flexx">
                 <div>
                     <img src="/mark/location.png" class="location"/>
@@ -405,21 +412,40 @@ if ($end) {
 
 </div>
 <div id="tickets-container" class="block" style="display: none;">
-    <div class="">
-        <div>
-            <div class="flexx space">
-                <div class="flexx">
-                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
-                    <div class="road-name">
-                        <h1><?= Html::encode($this->title) ?></h1>
+    <div class="flexx">
+        <div class="">
+            <div>
+                <div class="flexx space">
+                    <div class="flexx">
+                        <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                        <div class="road-name">
+                            <h1><?= Html::encode($this->title) ?></h1>
+                        </div>
+                        <div>
+                            <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
-                    </div>
+                    <div class="action-btn"></div>
                 </div>
-                <div class="action-btn"></div>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="section-link">
+                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+            </div>
+
+            <div class="section-link">
+                <a href="#">Ср, 23.04</a>
+            </div>
+
+            <div>
+                <img src="./img/tiket.png">
             </div>
         </div>
+<<<<<<< HEAD
         <div style="clear: both;"></div>
 
         <div class="section-link">
@@ -428,33 +454,143 @@ if ($end) {
             <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
             <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
         </div>
+=======
+        <div class="map"></div>
+>>>>>>> f737ec135f1014420fd2090b7a7eddd414f3e1a2
     </div>
 </div>
 <div id="journey-container" class="block" style="display: none;">
-    <div class="">
-        <div>
-            <div class="flexx space">
-                <div class="flexx">
-                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
-                    <div class="road-name">
-                        <h1><?= Html::encode($this->title) ?></h1>
+    <div class="flexx">
+        <div class="route-view">
+            <div>
+                <div class="flexx space">
+                    <div class="flexx">
+                        <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                        <div class="road-name">
+                            <h1><?= Html::encode($this->title) ?></h1>
+                        </div>
+                        <div>
+                            <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                        </div>
                     </div>
-                    <div>
-                        <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
-                    </div>
+                    <div class="action-btn"></div>
                 </div>
-                <div class="action-btn"></div>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="section-link">
+                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+            </div>
+
+            <div class="road-link flexx">
+                <div class="type-road-link" style="border: solid 3px #FFCF08;">
+                    <a href="#">
+                        <img src="./mark/icons8-ходьба-50.png" class="mark-card">55 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+                <div class="type-road-link">
+                    <a href="#">
+                        <img src="./mark/icons8-автобус-50.png" class="mark-card">40 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+                <div class="type-road-link">
+                    <a href="#">
+                        <img src="./mark/icons8-велосипед-30.png" class="mark-card">30 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flexx" id="container-switch" style="margin: 1em 0;">
+                <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                <span style="margin-left: 1em;">Оптимальный маршрут</span>
+            </div>
+
+            <div class="section-link">
+                <a href="#">Ср, 23.04</a>
+            </div>
+
+            <div class="list-road">
+                <?php $number = 1; ?>
+                <?php foreach ($points as $point): ?>
+                    <div class="dot flexx space">
+                        <div class="flexx">
+                            <div>
+                                <a href="#"><img src="./img/setting-dot.png"></a>
+                            </div>
+                            <div class="img-prev-dot">
+                                <div class="img-dot">
+                                    <img src="./img/dot.png">
+                                </div>
+                                <div class="number-dot"><?= $number; ?></div>
+                            </div>
+                            <div class="info-dot">
+                                <div class="info-text dgc">30 мин • <?= $point->routePoint->point->getPrettyType(); ?> • Билет от 100 рублей</div>
+                                <div class="name"><?= $point->routePoint->point->name; ?> </div>
+                                <div class="address dgc"><?= $point->routePoint->point->address; ?></div>
+                            </div>
+                        </div>
+
+                        <div class="dot-function">
+                            <img style="height: 40px;" src="./img/dot-function.png">
+                        </div>
+                    </div>
+                    <?php if($number < count($points)) : ?>
+                        <div class="transition flexx">
+                            <div class="img-transition">
+                                <img src="./img/person.png">
+                            </div>
+                            <div class="info-transition dgc">
+                                800 м • 10 мин. <img class="mark-card" style="width: 24px; transform: rotate(-90deg);" src="./mark/icons8-стрелка-влево-30.png">
+                            </div>
+                        </div>
+                    <?php endif; $number++;?>
+                <?php endforeach; ?>
+
             </div>
         </div>
-        <div style="clear: both;"></div>
+        <div class="map">
+            <div class="add-point-form">
+                <?php
+                $points2 = [];
+                foreach (Point::find()->all() as $point)
+                    $points2[$point->id] = $point->name;
 
-        <div class="section-link">
+        /*<div class="section-link">
             <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
             <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
             <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
+            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>*/
+                $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+                <?= $form->field($addPointForm, 'pointId')->hiddenInput(['value' => ''/*Здесь ID Point, который добавляем*/]) ?>
+                <?= $form->field($addPointForm, 'method')->dropDownList([
+                    1 => 'Добавить в конец маршрута',
+                    2 => 'Добавить следующей точкой маршрута',
+                    3 => 'Добавить в оптимальное место маршрута',
+                ]) ?>
+                <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
+            <!--<img src="./img/map.png" style="border-radius: 20px;">-->
+>>>>>>> f737ec135f1014420fd2090b7a7eddd414f3e1a2
         </div>
-    </div>
 </div>
 
 <div style="display: none;" class="flexx">
