@@ -34,6 +34,12 @@ $script = "$(document).ready(function(){
     $('#openModalButton').click(function() {
         $('#modal').modal('show');
     });
+});
+
+$(document).ready(function(){
+    $('#openModalButton2').click(function() {
+        $('#modal2').modal('show');
+    });
 });";
 $this->registerJs($script, View::POS_READY);
 
@@ -280,29 +286,79 @@ if ($end) {
             </div>
 
             <div class="list-road">
-                <div class="dot flexx">
-                    <div class="img-prev-dot">
-                        <div class="img-dot">
-                            <img src="./img/dot.png">
+                <?php $number = 1; ?>
+                <?php foreach ($points as $point): ?>
+                    <div class="dot flexx space">
+                        <div class="flexx">
+                            <div>
+                                <a href="#"><img src="./img/setting-dot.png"></a>
+                            </div>
+                            <div class="img-prev-dot">
+                                <div class="img-dot">
+                                    <img src="./img/dot.png">
+                                </div>
+                                <div class="number-dot"><?= $number; ?></div>
+                            </div>
+                            <div class="info-dot">
+                                <div class="info-text dgc">30 мин • <?= $point->routePoint->point->getPrettyType(); ?> • Билет от 100 рублей</div>
+                                <div class="name"><?= $point->routePoint->point->name; ?> </div>
+                                <div class="address dgc"><?= $point->routePoint->point->address; ?></div>
+                            </div>
                         </div>
-                        <div class="number-dot">1</div>
+
+                        <div class="dot-function">
+                            <img style="height: 40px;" src="./img/dot-function.png">
+                        </div>
                     </div>
-                    <div class="info-dot">
-                        <div class="info-text dgc">30 мин Площади</div>
-                        <div class="name">Красная площадь</div>
-                        <div class="address dgc">Красная площадь, Москва</div>
-                    </div>
-                </div>
-                <div class="transition flexx">
-                    <div class="img-transition">
-                        <img src="./img/person.png">
-                    </div>
-                    <div class="info-transition dgc">
-                        800 м, 10 мин.
-                    </div>
-                </div>
+                <?php if($number < count($points)) : ?>
+                        <div class="transition flexx">
+                            <div class="img-transition">
+                                <img src="./img/person.png">
+                            </div>
+                            <div class="info-transition dgc">
+                                800 м • 10 мин. <img class="mark-card" style="width: 24px; transform: rotate(-90deg);" src="./mark/icons8-стрелка-влево-30.png">
+                            </div>
+                        </div>
+                <?php endif; $number++;?>
+                <?php endforeach; ?>
+
             </div>
         </div>
+        <div class="map">
+            <img src="./img/map.png" style="border-radius: 20px;">
+        </div>
+    </div>
+    <div class="promo">
+        <div class="tasks">
+            На этом маршруте дейтсвует промокод<br><br>
+            <div class="btn-rout btn-rout-button">
+                <button id="openModalButton2" class="btn-rout-button">Узнать подробнее</button>
+            </div>
+        </div>
+
+        <?php
+
+        Modal::begin([
+            'id' => 'modal2',
+            'size' => 'modal-lg',
+        ]);
+
+        echo '<div class="modalContent">'
+            . '<div class="flexx"><h4>Промокод <span style="font-weight: bold;">Guj6vl406A7G</span> дает вам:</h4>
+                <div class="btn-rout btn-rout-button">Скопировать</div>
+                </div>
+                <div class="code-promo">
+                    <div class="mark"><img src="./mark/" style="mark"></div>
+                    <div class="modal-text">10% скидки на основное меню ресторана "Ribus" при предъявлении промокода официанту.</div>
+                </div>
+                <div class="code-promo">
+                    <div class="mark"></div>
+                    <div class="modal-text">Бесплатное посещение центрального музея Вооруженых сил после 14:00 по местному времени</div>
+                </div>
+            '.'</div>';
+
+        Modal::end();
+        ?>
     </div>
 </div>
 <div id="tickets-container" class="block" style="display: none;">

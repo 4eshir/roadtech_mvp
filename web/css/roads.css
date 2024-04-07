@@ -340,3 +340,24 @@ select {
 .comments {
     margin: 2em 0;
 }
+
+.img-transition {
+    margin-left: 2.5em;
+}
+
+.map {
+    border-radius: 20px;
+}
+
+.promo {
+    margin: 2em 0;
+    padding: 1em 2em;
+    width: 50%;
+    border: solid 3px #FFCF08;
+    border-radius: 20px;
+}
+
+.promo .tasks {
+    font-size: 1.2em;
+    font-weight: 500;
+}
