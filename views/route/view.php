@@ -81,10 +81,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+                <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+                <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
             </div>
 
             <div class="flexx social-in-card">
@@ -251,10 +251,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+                <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+                <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
             </div>
 
             <div class="road-link flexx">
@@ -398,7 +398,7 @@ if ($end) {
 
     <div class="btn-container-route">
         <div class="btn-rout btn-rout-button">
-            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+            <button onclick="toggleBlock('journey-container')" class="q4">В путь</button>
         </div>
     </div>
 
@@ -423,10 +423,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-            <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+            <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+            <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
         </div>
     </div>
 </div>
@@ -449,10 +449,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
-            <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+            <button onclick="toggleBlock('description-container', 'q1')" class="q1">Описание</button>
+            <button onclick="toggleBlock('route-container', 'q2')" class="q2">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container', 'q3')" class="q3">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container', 'q4')" class="q4">В путь</button>
         </div>
     </div>
 </div>
@@ -706,7 +706,7 @@ if ($end) {
 
 
 <script>
-    function buttClear(elId) {
+    /*function buttClear(elId) {
         console.log(elId);
         if (!elId.style) {
             elId.style = ""; // Создаем объект style, если его нет
@@ -720,44 +720,56 @@ if ($end) {
         elId.style.color = 'black';
         elId.style.textDecoration = 'underline #FFCF08';
         elId.style.textDecorationThickness = '3px';
-    }
+    }*/
 
-    function toggleBlock(blockId) {
+    function toggleBlock(blockId, bId) {
         var blocks = document.getElementsByClassName('block');
         for (var i = 0; i < blocks.length; i++) {
             blocks[i].style.display = 'none';
         }
-
 
         var block = document.getElementById(blockId);
         if (block) {
             block.style.display = 'block';
         }
 
-        q1 = document.getElementById('q1');
-        q2 = document.getElementById('q2');
-        q3 = document.getElementById('q3');
-        q4 = document.getElementById('q4');
-        if (blockId == 'description-container') {
-            buttClear(q2);
-            buttClear(q3);
-            buttClear(q4);
-            buttOk(q1);
-        } else if (blockId == 'route-container') {
-            buttClear(q1);
-            buttClear(q3);
-            buttClear(q4);
-            buttOk(q2);
-        } else if (blockId == 'tickets-container') {
-            buttClear(q1);
-            buttClear(q2);
-            buttClear(q4);
-            buttOk(q3);
-        } else{
-            buttClear(q1);
-            buttClear(q2);
-            buttClear(q3);
-            buttOk(q4);
-        }
+        let allBtns1 = Array.from(document.getElementsByClassName('q1'));
+        let allBtns2 = Array.from(document.getElementsByClassName('q2'));
+        let allBtns3 = Array.from(document.getElementsByClassName('q3'));
+        let allBtns4 = Array.from(document.getElementsByClassName('q4'));
+        let allBtns = allBtns1.concat(allBtns2, allBtns3, allBtns4);
+
+        allBtns.forEach(function(btn) {
+            btn.removeAttribute('style');
+        });
+
+        let btn = Array.from(document.getElementsByClassName(bId));
+        console.log(bId);
+        console.log(btn);
+        btn.forEach(function(one) {
+            if (!one.hasAttribute('style')) {
+                one.setAttribute('style', 'color: black; text-decoration: underline #FFCF08; text-decoration-thickness: 3px')
+            } else {
+                one.style.color = 'black';
+                one.style.textDecoration = 'underline #FFCF08';
+                one.style.textDecorationThickness = '3px';
+            }
+        });
+
+
+
+    }
+
+    window.onload = function() {
+        let btn = Array.from(document.getElementsByClassName('q1'));
+        btn.forEach(function(one) {
+            if (!one.hasAttribute('style')) {
+                one.setAttribute('style', 'color: black; text-decoration: underline #FFCF08; text-decoration-thickness: 3px')
+            } else {
+                one.style.color = 'black';
+                one.style.textDecoration = 'underline #FFCF08';
+                one.style.textDecorationThickness = '3px';
+            }
+        });
     }
 </script>
