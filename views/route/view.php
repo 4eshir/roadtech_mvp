@@ -325,10 +325,8 @@ if ($end) {
                 </div>
             </div>
 
-            <div class="flexx" id="container-switch" style="margin: 1em 0;">
-                <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
-                <span style="margin-left: 1em;">Оптимальный маршрут</span>
-            </div>
+            <br>
+            <?= Html::a('Составить оптимальный маршрут', Url::to(['create-optimal', 'id' => $model->id]), ['class' => 'btn btn-warning']) ?>
 
             <div class="section-link">
                 <a href="#">Ср, 23.04</a>
@@ -412,7 +410,7 @@ if ($end) {
         <div style="width:50%;"></div>
         <div class="promo">
             <div class="tasks">
-                На этом маршруте дейтсвует промокод<br><br>
+                На этом маршруте действует промокод<br><br>
                 <div class="btn-rout btn-rout-button">
                     <button id="openModalButton2" class="btn-rout-button">Узнать подробнее</button>
                 </div>

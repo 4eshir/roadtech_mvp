@@ -34,13 +34,15 @@ use yii\helpers\Url;
         <div>
             <img src="./img/social_image.png"/>
         </div>
-        <div>
-            Пользовательский рейтинг <img src="./mark/icons8-флаг-2-24.png"/> 4.7
+        <hr>
+        <div style="margin-top: 30px; margin-bottom: 15px; margin-left: 20px;">
+            <span style="font-size: 20px;">Пользовательский рейтинг <img src="./mark/icons8-флаг-2-24.png"/> <b>4.7</b></span>
         </div>
     </div>
 </div>
-<img src="./mark/icons8-лайк-с-заливкой-24.png"/><span>Лайков: <?= $model->likes ?></span><br>
-<?= Html::a('Лайкнуть', Url::to(['/social/like-route', 'id' => $model->id]), ['class' => 'btn btn-success']) ?>
+<br>
+<img src="./mark/icons8-лайк-с-заливкой-24.png"/><span style="font-size: 20px; font-weight: 600; margin-top: 20px; margin-bottom: 20px">Лайков: <?= $model->likes ?></span><br>
+<br><?= Html::a('Лайкнуть', Url::to(['/social/like-route', 'id' => $model->id]), ['class' => 'btn btn-success']) ?>
 
 <?php $form = ActiveForm::begin(['action' => 'index.php?r=social/send-comment', 'method' => 'POST']); ?>
 
@@ -57,7 +59,7 @@ use yii\helpers\Url;
 <h2>Комментарии</h2>
 <?php foreach ($commentsList as $comment): ?>
     <div>
-        <?= $comment->user->login.': '.$comment->text ?><button onclick="toggleAnswerBlock(this, <?= $comment->id ?>)">Ответить</button>
+        <?= $comment->user->login.': '.$comment->text ?><button style="margin-left: 15px; border: 1px solid gray; border-radius: 10px; background-color: #ececec" onclick="toggleAnswerBlock(this, <?= $comment->id ?>)">Ответить</button>
         <div id="answer-block-<?= $comment->id ?>" style="display: none">
             <?php $form = ActiveForm::begin([
                     'action' => 'index.php?r=social/send-comment',

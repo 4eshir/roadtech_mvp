@@ -309,6 +309,37 @@ class RouteController extends Controller
         ]);
     }
 
+    public function actionCreateOptimal($id)
+    {
+        $route = Route::findOne($id);
+        $minDist = $route->distance;
+
+        for ($i = 0; $i < 100; $i++) {
+            $allPoints = $query = RoutePoint::find()  // Указываем таблицу
+                ->where(['route_id' => $route->id])
+                ->orderBy(new \yii\db\Expression('RAND()'))->all();
+            $sumDist = 0;
+            for ($j = 0; $j < count($allPoints) - 1; $j++) {
+                $sumDist += DistanceStub::getDistanceBetweenPoints($allPoints[$j]->point, $allPoints[$j + 1]->point);
+            }
+            if ($sumDist < $minDist) {
+                $minDist = $sumDist;
+                $c = 1;
+                foreach ($allPoints as $point) {
+                    $point->step = $c;
+                    $point->save();
+                    $c++;
+                }
+            }
+        }
+
+        $route->distance = $minDist;
+        $route->save();
+
+        return $this->redirect(['view', 'id' => $route->id]);
+
+    }
+
     /**
      * Updates an existing route model.
      * If update is successful, the browser will be redirected to the 'view' page.
