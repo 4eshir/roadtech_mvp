@@ -12,27 +12,45 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var app\models\Route[] $routes */
 
-$this->title = 'Мои маршруты';
+$this->title = 'Обсуждения';
 $this->params['breadcrumbs'][] = $this->title;
 
+$this->registerCssFile('./css/roads.css');
 ?>
 
 <div>
-    <div>
-        <?php
-        $counter = 0;
-        foreach ($routes as $route): ?>
-        <?php if ($counter == 3): ?>
-        <?php $counter = 0; ?>
-    </div>
-    <div>
-        <?php endif; ?>
+    <h1>Обсуждаемые маршруты:</h1>
 
-        <div class="card-route">
-            <?= $route->name; ?>
-            <?= Html::a('Открыть', Url::to(['view', 'id' => $route->id]), ['class' => 'btn btn-primary']); ?>
-        </div>
+    <div class="row">
+        <?php foreach ($routes as $route): ?>
+            <div class="col-md-4 col-sm-6 cards">
+                <div class="card-rout">
+                    <div class="social flexx space">
+                        <div class="rating">7.4</div>
+                        <div class="like">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                                <path class="heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="picture"></div>
+                    <div class="text-area">
+                        <div class="city"><?= $route->name; ?></div>
+                        <div class="info">
+                            <div class="type"><img class="mark-card" src="./mark/icons8-маршрут-50.png">Маршрут</div>
+                            <div class="info-city"><img class="mark-card" src="./mark/icons8-visit-50.png">Астрахань</div>
+                            <div class="days"><img class="mark-card" src="./mark/icons8-время-24.png">1 день</div>
+                            <div class="dots"><img class="mark-card" src="./mark/icons8-флаг-2-24.png"><?= $route->pointsCount(); ?> мест</div>
+                            <div class="type"><img class="mark-card" src="./mark/icons8-книга-50.png">Пешеходные, авторские</div>
+                        </div>
+                        <div class="btn-area">
+                            <div class="btn-rout">
+                                <?= Html::a('Обсудить', Url::to(['view', 'id' => $route->id]), ['class' => 'btn-rout-link']); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php endforeach; ?>
     </div>
-
 </div>

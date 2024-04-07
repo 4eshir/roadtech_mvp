@@ -17,6 +17,7 @@ use app\models\User;
 use http\Exception\RuntimeException;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -232,9 +233,14 @@ class RouteController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                return $this->render('index', [
+                /*return $this->render('index', [
                     'routes' => $model->search()
-                ]);
+                ]);*/
+                $searchModel = $model->search(); // Выполним поиск
+
+                // Перенаправляем на страницу с результатами поиска
+                $url = Url::to(['route/index', 'searchData' => $searchModel]);
+                return $this->redirect($url);
             }
         }
 

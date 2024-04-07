@@ -29,6 +29,7 @@ use yii\helpers\Url;
 
 <div class="wrapper">
     <div class = "main-div">
+        <span class="badge rounded-pill bg-warning text-dark">Маршрут создан пользователем</span>
         <?= $model->name; ?>
     </div>
 </div>

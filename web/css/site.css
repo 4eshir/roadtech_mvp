@@ -158,11 +158,11 @@ a.desc:after {
     z-index: 100;
 }
 
-#modal1 .modal-content {
+#modal .modal-content {
     height: 15em;
 }
 
-#modal1 .modal-dialog {
+#modal .modal-dialog {
     margin: calc(20%) auto;
 }
 

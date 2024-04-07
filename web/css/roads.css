@@ -188,7 +188,7 @@ select {
 .map {
     background: url("../img/map.png") no-repeat;
     background-size: 100%;
-    width: 80em;
+    width: 50%;
     margin: 0 2em;
 }
 

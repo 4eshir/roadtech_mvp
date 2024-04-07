@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\route $model */
 
-$this->title = 'Create Route';
-$this->params['breadcrumbs'][] = ['label' => 'Routes', 'url' => ['index']];
+$this->title = 'Мой маршрут';
+$this->params['breadcrumbs'][] = ['label' => 'Маршруты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="route-create">
