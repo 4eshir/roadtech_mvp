@@ -176,8 +176,8 @@ if ($end) {
                                     </div>
                                     <div class="picture-dot"></div>
                                     <div class="dot-info">
-                                        <div class="dot-type lgc"><?= $point->routePoint->point->getPrettyType(); ?></div>
-                                        <div class="dot-name"><?= $point->routePoint->point->name; ?></div>
+                                        <div class="dot-type lgc"><?= $point->point->getPrettyType(); ?></div>
+                                        <div class="dot-name"><?= $point->point->name; ?></div>
                                     </div>
                                 </div>
                             </div>
