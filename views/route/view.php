@@ -551,7 +551,14 @@ if ($end) {
                 <?php endforeach; ?>
 
             </div>
+            <div class="btn-container-route">
+                <div class="btn-rout btn-rout-button">
+                    <button onclick="toggleBlock('journey-container')" class="q4">Завершить маршрут</button>
+                </div>
+            </div>
         </div>
+
+
         <div class="map">
             <div class="add-point-form">
                 <?php
@@ -575,6 +582,7 @@ if ($end) {
 
                 <?php ActiveForm::end(); ?>
             </div>
+
             <!--<img src="./img/map.png" style="border-radius: 20px;">-->
         </div>
 </div>
