@@ -47,6 +47,7 @@ $this->registerCssFile('./css/footer.css');
             ['label' => 'Пользователи', 'url' => ['/user/index']],
             ['label' => 'Социальная часть', 'url' => ['/social/index']],
             ['label' => 'God\'s panel', 'url' => ['/god/index']],
+            ['label' => 'Swagger', 'url' => ['/site/swagger']],
         ]
     ]);
     NavBar::end();

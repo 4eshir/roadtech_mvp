@@ -163,7 +163,7 @@ class GodController extends Controller
 
     public function actionGenerateQr($routePointId)
     {
-        $qrCode = (new QrCode(Url::to(['/qr/'])))
+        $qrCode = (new QrCode(Url::to(['/qr/check-point', 'rpuId' => $routePointId])))
             ->setSize(250)
             ->setForegroundColor(255,207,8)
             ->setBackgroundColor(245,245,245);

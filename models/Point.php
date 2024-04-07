@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use http\Exception\RuntimeException;
 use Yii;
 
 /**
@@ -59,5 +60,21 @@ class Point extends \yii\db\ActiveRecord
     public function getRoutePoints()
     {
         return $this->hasMany(RoutePoint::class, ['point_id' => 'id']);
+    }
+
+    public function getPrettyType()
+    {
+        switch ($this->type) {
+            case 10:
+                return 'Еда';
+            case 20:
+                return 'Жилье';
+            case 30:
+                return 'Достопримечательность';
+            case 40:
+                return 'Интересные точки';
+            default:
+                throw new RuntimeException('Invalid type');
+        }
     }
 }
