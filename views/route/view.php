@@ -374,7 +374,7 @@ if ($end) {
         <div class="map">
             <div class="add-point-form flexx">
                 <div>
-                    <img src="/mark/location.png" class="location"/>
+                    <img src="./mark/location.png" class="location"/>
                 </div>
                 <div>
                     <?php
