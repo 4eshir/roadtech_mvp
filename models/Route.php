@@ -121,6 +121,11 @@ class Route extends \yii\db\ActiveRecord
         return TaskRoute::find()->joinWith('task task')->where(['route_id' => $this->id])->orderBy(['task.reward_amount' => SORT_DESC])->all();
     }
 
+    public function tasksCount()
+    {
+        return count($this->getTasks());
+    }
+
     public function getPrettyDistance()
     {
         return round($this->distance / 1000, 1) . ' км';
