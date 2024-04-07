@@ -82,6 +82,9 @@ class InternalApiController
             $data[] = ['route_id' => $item->taskRoute->route_id, 'task_id' => $item->taskRoute->task_id];
         }
 
-        return $data;
+        return [
+            'status' => true,
+            'data' => $data,
+        ];
     }
 }
