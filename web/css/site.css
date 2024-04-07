@@ -87,31 +87,17 @@ a.desc:after {
     margin-bottom: 1rem;
 }
 
-.site-index {
+/*.site-index {
     background: url("../img/bg.png") no-repeat;
     background-position: center;
     height: 50em;
-}
+}*/
 
 .btn-test {
-    width: 25%;
-    margin: 0.5em;
-    align-items: center;
-    display: flex;
+    margin: -10em;
 }
 
-.btn-rout-main {
-    background: #FFCF08;
-    width: 20%;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 2.5em;
-    position: absolute;
-    top: 31em;
-    left: 15em;
-}
-
-button + .button-main {
+.btn-rout-main button {
     background: none;
     border: none;
     padding: 0;
