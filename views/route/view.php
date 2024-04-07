@@ -81,10 +81,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
+                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
             </div>
 
             <div class="flexx social-in-card">
@@ -251,10 +251,10 @@ if ($end) {
             <div style="clear: both;"></div>
 
             <div class="section-link">
-                <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
-                <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
-                <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
-                <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
+                <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+                <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
             </div>
 
             <div class="road-link flexx">
@@ -380,10 +380,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
-            <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
+            <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+            <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
         </div>
     </div>
 </div>
@@ -406,10 +406,10 @@ if ($end) {
         <div style="clear: both;"></div>
 
         <div class="section-link">
-            <button onclick="toggleBlock('description-container')" id="q1">Описание</button>
-            <button onclick="toggleBlock('route-container')" id="q2">Маршрут</button>
-            <button onclick="toggleBlock('tickets-container')" id="q3">Билеты и бронирования</button>
-            <button onclick="toggleBlock('journey-container')" id="q4">В путь</button>
+            <button onclick="toggleBlock('description-container')" id="q1" style="">Описание</button>
+            <button onclick="toggleBlock('route-container')" id="q2" style="">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')" id="q3" style="">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
         </div>
     </div>
 </div>
@@ -664,6 +664,11 @@ if ($end) {
 
 <script>
     function buttClear(elId) {
+        console.log(elId);
+        if (!elId.style) {
+            elId.style = ""; // Создаем объект style, если его нет
+        }
+
         elId.style.color = '#747474';
         elId.style.textDecoration = 'none';
     }
@@ -686,10 +691,10 @@ if ($end) {
             block.style.display = 'block';
         }
 
-        q1 = document.getElementById(q1);
-        q2 = document.getElementById(q2);
-        q3 = document.getElementById(q3);
-        q4 = document.getElementById(q4);
+        q1 = document.getElementById('q1');
+        q2 = document.getElementById('q2');
+        q3 = document.getElementById('q3');
+        q4 = document.getElementById('q4');
         if (blockId == 'description-container') {
             buttClear(q2);
             buttClear(q3);
