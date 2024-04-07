@@ -352,7 +352,7 @@ select {
 .promo {
     margin: 4em 0;
     padding: 1em 2em;
-    width: 50%;
+    width: 40%;
     border: solid 3px #FFCF08;
     border-radius: 20px;
 }
@@ -374,4 +374,9 @@ select {
 
 #modal2 .modal-header {
     display:none;
+}
+
+.btn-container-route {
+    margin: 4em auto;
+    width: 50%;
 }

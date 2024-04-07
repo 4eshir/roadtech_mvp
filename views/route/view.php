@@ -351,29 +351,25 @@ if ($end) {
         </div>
     </div>
 
-    <div class="btn-container">
-        <div class="btn-rout btn-rout-button">
-            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
-        </div>
-    </div>
-    
-    <div class="promo">
-        <div class="tasks">
-            На этом маршруте дейтсвует промокод<br><br>
-            <div class="btn-rout btn-rout-button">
-                <button id="openModalButton2" class="btn-rout-button">Узнать подробнее</button>
+    <div class="flexx">
+        <div style="width:50%;"></div>
+        <div class="promo">
+            <div class="tasks">
+                На этом маршруте дейтсвует промокод<br><br>
+                <div class="btn-rout btn-rout-button">
+                    <button id="openModalButton2" class="btn-rout-button">Узнать подробнее</button>
+                </div>
             </div>
-        </div>
 
-        <?php
+            <?php
 
-        Modal::begin([
-            'id' => 'modal2',
-            'size' => 'modal-lg',
-        ]);
+            Modal::begin([
+                'id' => 'modal2',
+                'size' => 'modal-lg',
+            ]);
 
-        echo '<div class="modalContent" style="margin-top: 1em;">'
-            . '<div class="flexx space"><h4>Промокод <span style="font-weight: bold;">Guj6vl406A7G</span> дает вам:</h4>
+            echo '<div class="modalContent" style="margin-top: 1em;">'
+                . '<div class="flexx space"><h4>Промокод <span style="font-weight: bold;">Guj6vl406A7G</span> дает вам:</h4>
                 <div class="btn-rout btn-rout-button" style="width: 30%;">Скопировать</div>
                 </div>
                 <div class="code-promo flexx">
@@ -386,9 +382,18 @@ if ($end) {
                 </div>
             '.'</div>';
 
-        Modal::end();
-        ?>
+            Modal::end();
+            ?>
+        </div>
     </div>
+
+    <div class="btn-container-route">
+        <div class="btn-rout btn-rout-button">
+            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+        </div>
+    </div>
+
+
 </div>
 <div id="tickets-container" class="block" style="display: none;">
     <div class="">
