@@ -295,7 +295,7 @@ if ($end) {
 
             <div class="list-road">
                 <?php $number = 1; ?>
-                <?php foreach ($points as $point): ?>
+                <?php foreach ($pointsPure as $point): ?>
                     <div class="dot flexx space">
                         <div class="flexx">
                             <div>
@@ -308,9 +308,9 @@ if ($end) {
                                 <div class="number-dot"><?= $number; ?></div>
                             </div>
                             <div class="info-dot">
-                                <div class="info-text dgc">30 мин • <?= $point->routePoint->point->getPrettyType(); ?> • Билет от 100 рублей</div>
-                                <div class="name"><?= $point->routePoint->point->name; ?> </div>
-                                <div class="address dgc"><?= $point->routePoint->point->address; ?></div>
+                                <div class="info-text dgc">30 мин • <?= $point->point->getPrettyType(); ?> • Билет от 100 рублей</div>
+                                <div class="name"><?= $point->point->name; ?> </div>
+                                <div class="address dgc"><?= $point->point->address; ?></div>
                             </div>
                         </div>
 
