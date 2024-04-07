@@ -375,3 +375,23 @@ select {
 #modal2 .modal-header {
     display:none;
 }
+
+.add-point-form {
+    width: 30%;
+    margin-left: 30%;
+    margin-top: 10%;
+}
+
+.btn-add {
+    margin: 0;
+    width: 100%;
+}
+
+.field-add {
+    margin: 0;
+}
+
+.location {
+    height: 60px;
+    width: 60px;
+}
