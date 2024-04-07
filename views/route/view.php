@@ -325,9 +325,38 @@ if ($end) {
             </div>
         </div>
         <div class="map">
+            <div>
+                <?php
+                $points2 = [];
+                foreach (Point::find()->all() as $point)
+                    $points2[$point->id] = $point->name;
+
+                $form = ActiveForm::begin(['action' => 'index.php?r=route/add-point', 'method' => 'POST']); ?>
+
+                <?= $form->field($addPointForm, 'pointId')->radioList($points2) ?>
+                <?= $form->field($addPointForm, 'method')->dropDownList([
+                    1 => 'Добавить в конец маршрута',
+                    2 => 'Добавить следующей точкой маршрута',
+                    3 => 'Добавить в оптимальное место маршрута',
+                ]) ?>
+                <?= $form->field($addPointForm, 'routeId')->hiddenInput(['value' => $model->id])->label(false) ?>
+
+                <div class="form-group">
+                    <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary']) ?>
+                </div>
+
+                <?php ActiveForm::end(); ?>
+            </div>
             <!--<img src="./img/map.png" style="border-radius: 20px;">-->
         </div>
     </div>
+
+    <div class="btn-container">
+        <div class="btn-rout btn-rout-button">
+            <button onclick="toggleBlock('journey-container')" id="q4" style="">В путь</button>
+        </div>
+    </div>
+    
     <div class="promo">
         <div class="tasks">
             На этом маршруте дейтсвует промокод<br><br>
