@@ -158,10 +158,10 @@ a.desc:after {
     z-index: 100;
 }
 
-.modal-content {
+#modal1 .modal-content {
     height: 15em;
 }
 
-.modal-dialog {
+#modal1 .modal-dialog {
     margin: calc(20%) auto;
 }

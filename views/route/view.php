@@ -325,7 +325,7 @@ if ($end) {
             </div>
         </div>
         <div class="map">
-            <img src="./img/map.png" style="border-radius: 20px;">
+            <!--<img src="./img/map.png" style="border-radius: 20px;">-->
         </div>
     </div>
     <div class="promo">
@@ -343,16 +343,16 @@ if ($end) {
             'size' => 'modal-lg',
         ]);
 
-        echo '<div class="modalContent">'
-            . '<div class="flexx"><h4>Промокод <span style="font-weight: bold;">Guj6vl406A7G</span> дает вам:</h4>
-                <div class="btn-rout btn-rout-button">Скопировать</div>
+        echo '<div class="modalContent" style="margin-top: 1em;">'
+            . '<div class="flexx space"><h4>Промокод <span style="font-weight: bold;">Guj6vl406A7G</span> дает вам:</h4>
+                <div class="btn-rout btn-rout-button" style="width: 30%;">Скопировать</div>
                 </div>
-                <div class="code-promo">
-                    <div class="mark"><img src="./mark/" style="mark"></div>
+                <div class="code-promo flexx">
+                    <div class="mark"><img src="./mark/icons8-еда-48.png" style="mark"></div>
                     <div class="modal-text">10% скидки на основное меню ресторана "Ribus" при предъявлении промокода официанту.</div>
                 </div>
-                <div class="code-promo">
-                    <div class="mark"></div>
+                <div class="code-promo flexx">
+                    <div class="mark"><img src="./mark/icons8-музей-50.png" style="mark"></div>
                     <div class="modal-text">Бесплатное посещение центрального музея Вооруженых сил после 14:00 по местному времени</div>
                 </div>
             '.'</div>';

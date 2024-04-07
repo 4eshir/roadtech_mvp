@@ -350,7 +350,7 @@ select {
 }
 
 .promo {
-    margin: 2em 0;
+    margin: 4em 0;
     padding: 1em 2em;
     width: 50%;
     border: solid 3px #FFCF08;
@@ -360,4 +360,18 @@ select {
 .promo .tasks {
     font-size: 1.2em;
     font-weight: 500;
+}
+
+.modal-text {
+    margin-left: 1em;
+    align-items: center;
+    display: flex;
+}
+
+.code-promo {
+    margin: 2em 0;
+}
+
+#modal2 .modal-header {
+    display:none;
 }
