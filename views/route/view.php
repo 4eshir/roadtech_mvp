@@ -9,6 +9,7 @@ use app\models\User;
 use app\models\UserRoute;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
+use yii\web\View;
 
 /** @var yii\web\View $this */
 /** @var app\models\Route $model */
@@ -28,9 +29,255 @@ $this->registerMetaTag(['name' => 'csrf-param', 'content' => Yii::$app->request-
 $this->registerMetaTag(['name' => 'csrf-token', 'content' => Yii::$app->request->getCsrfToken()]);
 
 $this->registerCssFile('./css/roads.css');
+
+$script = "$(document).ready(function(){
+    $('#openModalButton').click(function() {
+        $('#modal').modal('show');
+    });
+});";
+$this->registerJs($script, View::POS_READY);
 ?>
 
-<div class="flexx">
+<?php
+$pick = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 2])->one();
+$pickText = '';
+$bgColor = '';
+if ($pick) {
+    $pickText = 'Вы проходите данный маршрут';
+    $bgColor = 'bg-warning text-dark';
+}
+
+$end = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 3])->one();
+if ($end) {
+    $pickText = 'Вы успешно завершили данный маршрут';
+    $bgColor = 'bg-success text light';
+}
+?>
+
+<div id="description-container" class="block" style="display: block;">
+    <div class="flexx">
+        <div class="">
+            <div>
+                <div class="flexx space">
+                    <div class="flexx">
+                        <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                        <div class="road-name">
+                            <h1><?= Html::encode($this->title) ?></h1>
+                        </div>
+                        <div>
+                            <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                        </div>
+                    </div>
+                    <div class="action-btn"></div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="section-link">
+                <button onclick="toggleBlock('description-container')">Описание</button>
+                <button onclick="toggleBlock('route-container')">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')">В путь</button>
+            </div>
+
+            <div class="flexx">
+                <div class="">
+                    <div class="btn-rout btn-rout-button">
+                        <button id="openModalButton" class="btn-rout-button">Задание на маршруте</button>
+                    </div>
+
+                    <?php
+
+                    Modal::begin([
+                        'title' => '<h3>Задание от Яндекс</h3>',
+                        'id' => 'modal',
+                        'size' => 'modal-lg',
+                    ]);
+
+                    echo '<div class="modalContent">'
+                        . ''
+                        . '</div>';
+
+                    Modal::end();
+                    ?>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="map2">
+            <div>
+                <img src="./img/map1.png">
+            </div>
+            <div class="calendar">
+                <div class="calendar-text">Доступность маршрута</div>
+                <div style="text-align: right;">
+                    <?php
+                    $data = [
+                        '1' => 'Январь',
+                        '2' => 'Февраль',
+                        '3' => 'Март',
+                        '4' => 'Апрель',
+                        '5' => 'Май',
+                        '6' => 'Июнь',
+                        '7' => 'Июль',
+                        '8' => 'Август',
+                        '9' => 'Сентябрь',
+                        '10' => 'Октябрь',
+                        '11' => 'Ноябрь',
+                        '12' => 'Декабрь',
+                    ];
+
+                    // Опции для выпадающего списка
+                    $options = ['prompt' => 'Апрель'];
+
+                    // Вывод выпадающего списка
+                    echo Html::dropDownList('select', null, $data, $options);
+                    ?>
+                </div>
+                <div class="calenadar-day">
+                    <img src="./img/calendar.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="route-container" class="block" style="display: none;">
+    <div class="flexx">
+        <div class="route-view">
+            <div>
+                <div class="flexx space">
+                    <div class="flexx">
+                        <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                        <div class="road-name">
+                            <h1><?= Html::encode($this->title) ?></h1>
+                        </div>
+                        <div>
+                            <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                        </div>
+                    </div>
+                    <div class="action-btn"></div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="section-link">
+                <button onclick="toggleBlock('description-container')">Описание</button>
+                <button onclick="toggleBlock('route-container')">Маршрут</button>
+                <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
+                <button onclick="toggleBlock('journey-container')">В путь</button>
+            </div>
+
+            <div class="road-link flexx">
+                <div class="type-road-link">
+                    <a href="#">
+                        <img src="./mark/icons8-ходьба-50.png" class="mark-card">40 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+                <div class="type-road-link">
+                    <a href="#">
+                        <img src="./mark/icons8-автобус-50.png" class="mark-card">30 мин.
+                        <span style="lgc">
+                        <?php echo $model->getPrettyDistance(); ?>
+                    </span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flexx" id="container-switch" style="margin: 1em 0;">
+                <input type="checkbox" id="switch" /><label for="switch">Toggle</label>
+                <span style="margin-left: 1em;">Оптимальный маршрут</span>
+            </div>
+
+            <div class="section-link">
+                <a href="#">Ср, 23.04</a>
+            </div>
+
+            <div class="list-road">
+                <div class="dot flexx">
+                    <div class="img-prev-dot">
+                        <div class="img-dot">
+                            <img src="./img/dot.png">
+                        </div>
+                        <div class="number-dot">1</div>
+                    </div>
+                    <div class="info-dot">
+                        <div class="info-text dgc">30 мин Площади</div>
+                        <div class="name">Красная площадь</div>
+                        <div class="address dgc">Красная площадь, Москва</div>
+                    </div>
+                </div>
+                <div class="transition flexx">
+                    <div class="img-transition">
+                        <img src="./img/person.png">
+                    </div>
+                    <div class="info-transition dgc">
+                        800 м, 10 мин.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tickets-container" class="block" style="display: none;">
+    <div class="">
+        <div>
+            <div class="flexx space">
+                <div class="flexx">
+                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                    <div class="road-name">
+                        <h1><?= Html::encode($this->title) ?></h1>
+                    </div>
+                    <div>
+                        <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                    </div>
+                </div>
+                <div class="action-btn"></div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
+        <div class="section-link">
+            <button onclick="toggleBlock('description-container')">Описание</button>
+            <button onclick="toggleBlock('route-container')">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')">В путь</button>
+        </div>
+    </div>
+</div>
+<div id="journey-container" class="block" style="display: none;">
+    <div class="">
+        <div>
+            <div class="flexx space">
+                <div class="flexx">
+                    <div class="link-back"><a href="<?= Url::to(['route/index']) ?>"><img class="mark-card" src="./mark/icons8-стрелка-влево-30.png"></a></div>
+                    <div class="road-name">
+                        <h1><?= Html::encode($this->title) ?></h1>
+                    </div>
+                    <div>
+                        <span class="badge rounded-pill <?= $bgColor ?>"><?= $pickText ?></span>
+                    </div>
+                </div>
+                <div class="action-btn"></div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
+        <div class="section-link">
+            <button onclick="toggleBlock('description-container')">Описание</button>
+            <button onclick="toggleBlock('route-container')">Маршрут</button>
+            <button onclick="toggleBlock('tickets-container')">Билеты и бронирования</button>
+            <button onclick="toggleBlock('journey-container')">В путь</button>
+        </div>
+    </div>
+</div>
+
+<div style="display: none;" class="flexx">
     <div class="route-view">
         <?php
         $pick = UserRoute::find()->where(['route_id' => $model->id])->andWhere(['user_id' => User::getCurrentUser()->id])->andWhere(['status' => 2])->one();
@@ -278,12 +525,16 @@ $this->registerCssFile('./css/roads.css');
 </div>
 
 
-<?php
-$js = <<<JS
-$('#modalButton').click(function(){
-    $('#modal').modal('show');
-});
-JS;
+<script>
+    function toggleBlock(blockId) {
+        var blocks = document.getElementsByClassName('block');
+        for (var i = 0; i < blocks.length; i++) {
+            blocks[i].style.display = 'none';
+        }
 
-$this->registerJs($js);
-?>
+        var block = document.getElementById(blockId);
+        if (block) {
+            block.style.display = 'block';
+        }
+    }
+</script>

@@ -19,7 +19,7 @@ $this->registerJs($script, View::POS_READY);
 <div class="site-index">
     <div class="btn-test">
         <div class="btn-rout-main btn-rout-link-main">
-            <button id="openModalButton" class="btn-rout-link-main">Подобрать маршрут</button>
+            <button id="openModalButton" class="btn-rout-link-main button-main">Подобрать маршрут</button>
         </div>
     </div>
 

@@ -2,14 +2,16 @@
     margin: 1em 0;
 }
 
-.section-link a {
+.section-link a, .section-link button {
     color: #747474;
     text-decoration: none;
     position: relative;
     font-weight: 600;
     margin: 1em 1em 1em 0;
+    border: none;
+    background: none;
 }
-.section-link a:hover {
+.section-link a:hover, .section-link button:hover {
     color: black;
     text-decoration: underline #FFCF08;
     text-decoration-thickness: 3px;
@@ -243,4 +245,24 @@ select {
     margin: 0.5em;
     align-items: center;
     display: flex;
+}
+
+.calendar {
+    margin: 2em;
+}
+
+.calendar-text {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.calendar select {
+    width: auto;
+    height: 2em;
+    color: #747474;
+}
+
+.btn-rout-button button {
+    background: none!important;
+    border: none!important;
 }

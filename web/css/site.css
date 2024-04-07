@@ -111,7 +111,7 @@ a.desc:after {
     left: 15em;
 }
 
-button {
+button + .button-main {
     background: none;
     border: none;
     padding: 0;
