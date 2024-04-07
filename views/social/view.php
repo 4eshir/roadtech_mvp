@@ -31,9 +31,15 @@ use yii\helpers\Url;
     <div class = "main-div">
         <span class="badge rounded-pill bg-warning text-dark">Маршрут создан пользователем</span>
         <?= $model->name; ?>
+        <div>
+            <img src="./img/social_image.png"/>
+        </div>
+        <div>
+            Пользовательский рейтинг <img src="./mark/icons8-флаг-2-24.png"/> 4.7
+        </div>
     </div>
 </div>
-<p>Лайков: <?= $model->likes ?></p>
+<img src="./mark/icons8-лайк-с-заливкой-24.png"/><span>Лайков: <?= $model->likes ?></span><br>
 <?= Html::a('Лайкнуть', Url::to(['/social/like-route', 'id' => $model->id]), ['class' => 'btn btn-success']) ?>
 
 <?php $form = ActiveForm::begin(['action' => 'index.php?r=social/send-comment', 'method' => 'POST']); ?>
